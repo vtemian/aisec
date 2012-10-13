@@ -7,6 +7,7 @@ from account.form import UserRegister, UserLogin, ResetPassword
 from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import render_to_response, redirect, render
 from django.template.context import RequestContext
+from account.models import UserProfile
 
 def register(request):
     if request.method == "POST":
@@ -19,15 +20,7 @@ def register(request):
                 gravatar_url = "http://www.gravatar.com/avatar/" + hashlib.md5(request.POST.get('email')).hexdigest()
 
                 userprofile = UserProfile.objects.create(user = user, gravatar_url = gravatar_url)
-
-
-                userstats = UserStats.objects.create(user = userprofile)
-
-                division = UserDivision.objects.create(user=userstats)
-
                 auth_login(request,authenticate(username=request.POST['username'], password=request.POST['password']))
-                badge_type="newaccount"
-                get_badge(badge_type, userstats.user)
                 return HttpResponse(simplejson.dumps({'ok': '/'}))
             except Exception as exp:
                 return HttpResponse(exp.message)
