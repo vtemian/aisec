@@ -1,6 +1,21 @@
-{% extends 'base.html' %}
+<html>
+  <link rel="shortcut icon" href="{{ STATIC_URL }}favicon.ico">
 
-{% block content %}
-Index page.
+  <link rel="stylesheet" href="{{ STATIC_URL }}css/style.css?v=2">
 
-{% endblock %}
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js"></script>
+    <script src="http://cdn.jquerytools.org/1.2.5/form/jquery.tools.min.js"></script>
+    <script src="{{ STATIC_URL }}js/mylibs/modal.js"></script>
+
+
+    {% block extrahead %}
+    {% endblock %}
+
+</head>
+<body>
+    {% block content %}
+    {% endblock %}
+<body>
+</html>

@@ -16,4 +16,3 @@ urlpatterns = patterns('',
     url(r'^notifications/', include('notification.urls')),
     url(r'^admin/', include(admin.site.urls)),
 )
-

@@ -121,6 +121,7 @@ INSTALLED_APPS = (
     'notification',
     'account',
     'common',
+    'tags',
 )
 
 # A sample logging configuration. The only tangible logging
