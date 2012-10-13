@@ -148,3 +148,8 @@ body.discussion #forum-content .comment, body.discussion #forum-content .post {
     clear: both; }
 body.discussion #forum-content .posts-wrapper .post {
   margin: 10px 0; }
+
+
+article.post {
+    border: 1px solid red;
+}

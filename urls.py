@@ -12,4 +12,5 @@ urlpatterns = patterns('',
     url(r'^user/register/$',  'account.views.register'),
     url(r'^discussion/', include('discussion.urls')),
     url(r'^notifications/', include('notification.urls')),
+    url(r'^admin/', include(admin.site.urls)),
 )
