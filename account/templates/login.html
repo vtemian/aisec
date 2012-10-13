@@ -1,0 +1,118 @@
+{% extends 'index.html' %}
+{% block extrahead %}
+    <script type="text/javascript" src="{{ STATIC_URL }}js/socket.io-client/dist/socket.io.min.js"></script>
+    <script src="{{ STATIC_URL }}js/django-validate.js"></script>
+    <script src="{{ STATIC_URL }}js/frontpage.js"></script>
+    <script src="{{ STATIC_URL }}js/login.js"></script>
+    <script src="{{ STATIC_URL }}js/register.js"></script>
+    <script src="{{ STATIC_URL }}js/jquery.jparallax.min.js" ></script>
+    <script src="{{ STATIC_URL }}js/jquery.event.frame.js" ></script>
+    <script type="text/javascript">
+        jQuery(document).ready(function()
+        {
+            $('#parallax2 .parallax-layer2')
+                    .parallax2({
+                        mouseport: $('#parallax2')
+                    });
+        });
+    </script>
+    <link rel="stylesheet" href="{{ STATIC_URL }}css/frontpage.css">
+{% endblock %}
+{% block header %}
+    <div id="logo"><a href="#"><img src="{{ STATIC_URL }}img/logo.png" alt="Avioane" /></a></div>
+
+    <nav id="user_menu">
+        <ol>
+            <li id="register-trigger">Register</li>
+            <li id="login-trigger">Login</li>
+        </ol>
+    </nav>
+
+
+{% endblock %}
+{% block content %}
+    <div id="sub_header_holder">
+    <div class="separator"></div>
+    <div id="sub_header">
+
+        <p>Battle your enemyes in your journey of becoming the best pilot out there. Experience a new way of playing an old game. How high can you reach before going down?</p>
+
+        <div id="sub_header_avion"><img src="{{ STATIC_URL }}img/avion.png" alt="Avion"/></div>
+        <div id="sub_header_online_count_text"></div>
+        <div id="sub_header_online_count">
+            <ul id="online-peoples">
+                <li><h3>0</h3></li>
+                <li><h3>2</h3></li>
+
+                <div class="clearfix"></div>
+            </ul>
+
+        </div>
+
+    </div>
+    <div class="separator"></div>
+        <div id="login">
+            <div id="pilot"></div>
+                <ul>
+            <form action="{% url account.views.login %}" method="POST" id="login-form">
+                <li>{% csrf_token %}</li>
+                <li><div id="general" class="error"></div></li>
+                <li>
+                    <label for="username" class="label">username:</label>
+
+                </li>
+                <li>
+                    <input type="text" id="username" name="username" class="user_login_input"/>
+                </li>
+                <li>
+                    <label for="password" class="label">password:</label>
+
+                </li>
+                    <input type="password" id="password" name="password" class="user_login_input" />
+                </li>
+                <li><input type="submit" value="login" class="submit" /></li>
+            </form>
+                </ul>
+        </div>
+        <div id="register"><div id="avionas"></div>
+                <ul>
+            <form action="{% url account.views.register %}" id="sign_up_form" method="POST">
+                <li>{% csrf_token %}</li>
+                <li><div id="general" class="error"></div></li>
+                <li>
+                    <label for="username" class="label">username:</label>
+                </li> <li>
+                    <input type="text" id="username" name="username" class="user_login_input"/>
+                </li>
+                <li>
+                    <label for="password" class="label">password:</label>
+                </li> <li>
+                    <input type="password" id="password" name="password" class="user_login_input" />
+                </li>
+                <li>
+                    <label for="email" class="label">email:</label>
+                </li> <li>
+                    <input type="email" id="email" name="email" class="user_login_input" />
+                </li>
+                <li><input type="submit" value="register" class="submit" /></li>
+
+            </form>
+                </ul>
+        </div>
+    
+    </div>
+    <div id="insula">
+        <div id="nor"></div>
+        <div id="nori"></div>
+        <div id="avion1"></div>
+        <div id="avion2"></div>
+        <div id="avion3"></div>
+        <div id="bombe"></div>
+    </div>
+
+</div>
+
+{% endblock %}
+
+
+

@@ -1,0 +1,7 @@
+#login, #register {
+    display:none;
+}
+#login, #register li{
+    list-style-type: none;
+}
+

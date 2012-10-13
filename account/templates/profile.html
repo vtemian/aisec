@@ -1,0 +1,89 @@
+{% extends 'index.html' %}
+{% block extrahead %}
+    <script type="text/javascript" src="{{ STATIC_URL }}js/map.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}js/battle.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}js/war.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}js/frontend.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}js/plane.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}js/collissions.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}js/socket.io-client/dist/socket.io.min.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}js/coffee_draw.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}js/lobby.js"></script>
+    <link rel="stylesheet" href="{{ STATIC_URL }}css/frontpage.css">
+{% endblock %}
+{% block header %}
+    <div id="logo"><a href="/"><img src="{{ STATIC_URL }}img/logo.png" alt="Avioane" /></a></div>
+    <nav id="user_menu_logged">
+        <ul>
+            <li><div class="user_avatar"><img src="{{ userprofile.user.gravatar_url }}?s=21" alt="avatar" /></div><h3 id="user_name">{{ user.username }}</h3></li>
+            <li><img src="{{ STATIC_URL }}img/user/menu/icon_drop.png"/></li>
+            <li><a href="/logout"><img src="{{ STATIC_URL }}img/user/menu/icon_logout.png"/></a></li>
+        </ul>
+    </nav>
+
+    <nav id="game_menu">
+        <ol>
+            <li><a href="/">acasa</a></li>
+            <li><a href="/hangar">hangar</a></li>
+            <li><a href="/shop">shop</a></li>
+            <li><a href="/help">help</a></li>
+        </ol>
+    </nav>
+
+
+{% endblock %}
+{% block content %}
+    <div id="body">
+
+        <div id="profile_page" class="clearfix">
+            <div id="profile_body">
+                <div id="profile_top" class="clearfix">
+                    <div id="profile_avatar"><img src="{{ userpro.gravatar_url }}?s=93" alt="avatar" /></div>
+                    <div id="profile_stats" class="clearfix">
+                        <span><img src="{{ STATIC_URL }}img/user/profile/locker/ranks/liutenant.png" alt="liutenant" /></span><h2>{{ userpro.user.username }}</h2><h3>({{ stats.rank }})</h3>
+                        <ul>
+                            <li>Level: {{ stats.lvl }}</li>
+                            <li>Division: {{ userdiv.name }}</li>
+                            <li>Badges unlocked: {{ medalsnr }}</li>
+                        </ul>
+                    </div>
+                    <div id="profile_settings"><img src="{{ STATIC_URL }}img/user/profile/locker/settings.png" alt="profile_settings"/>settings</div>
+                </div>
+                
+                <div id="profile_locker" class="clearfix">
+                    <div id="locker_top">
+                    </div>
+                    <div id="locker_middle">
+                        <ul id="locker_rafturi">
+
+
+
+                                <li class="locker_raft clearfix">
+                                    {% for medal in medals %}
+                                <div class="trophy"><img src="{{ STATIC_URL }}img/user/profile/trophies/{{ medal.medals.image }}" alt="{{ medal.medals.description }}"/></div>
+                                    {% endfor %}
+
+                                </li>
+
+
+                        </ul>
+                    </div>
+                    <div id="locker_bottom">
+                    </div>
+                    <div id="locker_stickers" class="clearfix">
+                        <div class="sticker"><img src="{{ STATIC_URL }}img/user/profile/stickers/oldschool.png" /></div>
+
+
+
+                    </div>
+                </div>
+                <div id="profile_stickers">
+                </div>
+            </div>
+
+            <div id="profile_sidebar">
+            </div>
+        </div>
+
+
+{% endblock %}
