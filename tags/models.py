@@ -13,18 +13,43 @@ class TagPriority(models.Model):
     value = models.IntegerField(max_length=3, default=0)
     color = models.CharField(max_length=25, default="#FFFFF")
 
+    def __unicode__(self):
+        return self.name
+
 class Tag(models.Model):
     name = models.CharField(max_length=150)
     user = models.ManyToManyField(User, null=True, through="tags.TagsUser")
+    post = models.ManyToManyField(Post, null=True, through="tags.TagsPost")
 
-    post = models.ForeignKey(Post)
     priority = models.ForeignKey(TagPriority)
+
+    def __unicode__(self):
+        return self.name
 
 class TagsUser(models.Model):
     user = models.ForeignKey(User)
     tag = models.ForeignKey(Tag)
 
+class TagsPost(models.Model):
+    post = models.ForeignKey(Post)
+    tag = models.ForeignKey(Tag)
+
+    def __unicode__(self):
+        return 'Tag {tag} for {post}'.format(
+            tag=self.tag.name,
+            post=self.post.pk
+        )
+
 class AdminTagPriority(admin.ModelAdmin):
-    pass
+    list_display = ('name', 'description', 'value')
+
+class AdminTag(admin.ModelAdmin):
+    list_display = ['name']
+
+class AdminTagsPost(admin.ModelAdmin):
+    list_display = ('post', 'tag')
+
+
 admin.site.register(TagPriority, AdminTagPriority)
-admin.site.register(Tag)
+admin.site.register(Tag, AdminTag)
+admin.site.register(TagsPost, AdminTagsPost)
