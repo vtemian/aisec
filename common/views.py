@@ -1,8 +1,8 @@
 from django.shortcuts import  render
-from discussion import views
+from dashboard import views as dashboard
 
 def base(request):
     if request.user.is_authenticated():
-        return views.disccusions(request)
+      return dashboard.open(request)
     else:
-        return render(request, 'login.html')
+      return render(request, 'login.html')
