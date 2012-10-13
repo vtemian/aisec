@@ -114,12 +114,14 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'admin_bootstrap',
     'django.contrib.admin',
     'discussion',
     'orderable',
     'notification',
     'account',
     'common',
+    'tags',
 )
 
 # A sample logging configuration. The only tangible logging
