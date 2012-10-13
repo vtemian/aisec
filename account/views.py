@@ -7,9 +7,6 @@ from account.form import UserRegister, UserLogin, ResetPassword
 from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import render_to_response, redirect, render
 from django.template.context import RequestContext
-from account.models import UserMedals
-from battle.views import get_badge
-from account.models import UserProfile, PasswordReset, UserStats, UserDivision
 
 def register(request):
     if request.method == "POST":
