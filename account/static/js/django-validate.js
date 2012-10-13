@@ -1,6 +1,7 @@
 function validate($form, callback){
     var action = $form.attr('action')
     $.post(action, $form.serializeArray(), function(date){
+        console.log(date);
         date = jQuery.parseJSON(date)
         if(date.message != undefined){
             $('#general', $form).empty()
