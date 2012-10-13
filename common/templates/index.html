@@ -14,8 +14,21 @@
     {% endblock %}
 
 </head>
-<body>
+<body class="{% block bodyclass %}{% endblock %}">
     {% block content %}
     {% endblock %}
-<a/body>
+
+    {% block extra_style %}
+    {% endblock %}
+
+    {% block extra_script %}
+    {% endblock %}
+
+    <link rel="stylesheet" href="{{ STATIC_URL }}discussion/styles/discussion.css">
+    <script type="text/javascript" src="{{ STATIC_URL }}scripts/plugins/jquery.form.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}scripts/plugins/jquery.autogrow.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}scripts/plugins/jquery.placeholder.js"></script>
+    <script src="{{ STATIC_URL }}discussion/scripts/discussion.js"></script>
+
+</body>
 </html>
