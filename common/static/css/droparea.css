@@ -1,0 +1,48 @@
+.droparea {
+    position:relative;
+    text-align: center;
+}
+.droparea div {
+    position: absolute;
+    top:0;
+    width: 146px;
+    height: 146px;
+}
+.droparea .instructions {
+    border: 2px dashed #ddd;
+    opacity: .8;
+}
+.droparea .instructions.over {
+    border: 2px dashed #000;
+    background: #ffa;
+}
+.droparea .progress {
+    position:absolute;
+    bottom: 0;
+    width: 146px;
+    height: 146px;;
+    color: #fff;
+    font-weight: bold;
+    background: #066FB3;
+}
+#areas { width: 480px; }
+.spot {
+    width: 146px;
+    height: 146px;
+}
+.thumb {
+    float: left;
+    margin:20px 20px 0 0;
+    width: 140px;
+    min-height: 105px;
+}
+.desc {
+    float:right;
+    width: 460px;
+}
+.signature a { color:#555; text-decoration:none; }
+.signature img { margin-right:5px; vertical-align: middle; }
+
+#upload-instruction {
+    text-align: center;
+}
