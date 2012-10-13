@@ -25,8 +25,8 @@
 
             <div class="nav-collapse collapse">
                 <ul class="nav">
-                    <li class="active"><a href="{% url discussion_index %}">Home</a></li>
-                    <li><a href="{% url discussion_index %}">Discussions</a></li>
+                    <li class="nav-item-home"><a href="{% url home %}">Home</a></li>
+                    <li class="nav-item-discussion"><a href="{% url discussion_index %}">Discussions</a></li>
                     <li><a href="#about">Users</a></li>
                 </ul>
 
@@ -55,6 +55,13 @@
     <script type="text/javascript" src="{{ STATIC_URL }}scripts/plugins/jquery.autogrow.js"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}scripts/plugins/jquery.placeholder.js"></script>
     <script src="{{ STATIC_URL }}discussion/scripts/discussion.js"></script>
+
+    <script>
+        var selectedMenu = "{% block selected_menu %}home{% endblock %}";
+        $(document).ready(function() {
+            $('.nav-item-' + selectedMenu).addClass('active');
+        })
+    </script>
 
     {% block extra_style %}
     {% endblock %}
