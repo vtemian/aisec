@@ -2,11 +2,6 @@
 {% load discussiontags %}
 
 {% block forum_content %}
-    <div class="forum-search">
-        <h2>Search</h2>
-        {% include 'discussion/_search_form.html' %}
-    </div>
-    
     <h2>{{ object }}</h2>
     <div class="posts_wrapper">
         <form action="{% url discussion_add_post discussion_slug=object.slug %}" method="POST" enctype="multipart/form-data" class="post-form">

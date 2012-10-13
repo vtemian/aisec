@@ -58,8 +58,8 @@
 
     <script>
         $(document).ready(function() {
-
-            $('nav-menu')
+            var bodyClass = $('body').attr('class')
+            $('.nav-item-' + bodyClass).addClass('active');
         })
     </script>
 
