@@ -39,17 +39,3 @@ class TagsPost(models.Model):
             tag=self.tag.name,
             post=self.post.pk
         )
-
-class AdminTagPriority(admin.ModelAdmin):
-    list_display = ('name', 'description', 'value')
-
-class AdminTag(admin.ModelAdmin):
-    list_display = ['name']
-
-class AdminTagsPost(admin.ModelAdmin):
-    list_display = ('post', 'tag')
-
-
-admin.site.register(TagPriority, AdminTagPriority)
-admin.site.register(Tag, AdminTag)
-admin.site.register(TagsPost, AdminTagsPost)
