@@ -1,0 +1,29 @@
+{% extends "discussion/base.html" %}
+
+{% block forum_content %}
+    <div class="forum-search">
+        <h2>Search</h2>
+        {% include 'discussion/_search_form.html' %}
+    </div>
+
+    <div class="forum-search-results">
+    {% if object_list %}
+        <h5><span class="num-results">{{ object_list.all.count }}</span> results</h5>
+        {% for post in object_list %}
+            <article class="post" id="post-{{ post.id }}">
+                <div class="post-info">
+                    {% include 'discussion/_post_detail.html' %}
+                    <div class="comment-count">{{ post.comment_set.all.count|default:"No" }} repl{{ post.comment_set.all.count|pluralize:"y,ies" }}</div>
+                    <div class="post-links">
+                        <a href="{% url discussion_post discussion_slug=post.discussion.slug pk=post.pk %}" class="post-permalink">Full conversation</a>
+                    </div>
+                </div>
+            </article>
+        {% endfor %}
+    {% else %}
+        <p>No results</p>
+    {% endif %}
+    </div>
+
+    <a href="{% url discussion_index %}" class="index-link">All discussions</a>
+{% endblock %}
