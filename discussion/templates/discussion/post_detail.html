@@ -1,0 +1,30 @@
+{% extends "discussion/base.html" %}
+{% load discussiontags %}
+
+{% block bodyclass %}{{ block.super }} post-view{% endblock %}
+
+{% block forum_content %}
+    <article class="post" id="post-{{ post.id }}">
+        <div class="post-info">
+            {% include 'discussion/_post_detail.html' %}
+            <div class="comment-count">{{ post.comment_set.all.count|default:"No" }} repl{{ post.comment_set.all.count|pluralize:"y,ies" }}</div>
+            <div class="post-links">
+                <a href="#reply" class="post-reply">Reply</a>
+            </div>
+        </div>
+        <section class="post-comments">
+            {% if post.comment_set.all.count > 0 %}
+                <h3 class="replies">Replies:</h3>
+                {% for comment in post.comment_set.all %}
+                    {% include 'discussion/_comment_detail.html' %}
+                {% endfor %}
+            {% endif %}
+            <div class="comment-form-wrapper" id="reply">
+                {% comment_form post %}
+            </div>
+        </section>
+    </article>
+
+    <a href="{% url discussion slug=post.discussion.slug %}" class="index-link">All posts in {{ post.discussion }}</a>
+{% endblock %}
+

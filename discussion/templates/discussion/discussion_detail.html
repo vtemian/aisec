@@ -1,0 +1,42 @@
+{% extends "discussion/base.html" %}
+{% load discussiontags %}
+
+{% block forum_content %}
+    <div class="forum-search">
+        <h2>Search</h2>
+        {% include 'discussion/_search_form.html' %}
+    </div>
+    
+    <h2>{{ object }}</h2>
+    <div class="posts_wrapper">
+        <form action="{% url discussion_add_post discussion_slug=object.slug %}" method="POST" enctype="multipart/form-data" class="post-form">
+            <h3>Add new post:</h3>
+            {% include 'discussion/_post_form_fields.html' %}
+        </form>
+        {% for post in object.post_set.all %}
+            <article class="post post-list-{{ forloop.counter }}" id="post-{{ post.id }}">
+                {% url discussion_post pk=post.pk discussion_slug=object.slug as post_detail %}
+                <div class="post-info">
+                    {% include 'discussion/_post_detail.html' %}
+                    <div class="comment-count">{{ post.comment_set.all.count|default:"No" }} repl{{ post.comment_set.all.count|pluralize:"y,ies" }}</div>
+                    <div class="post-links">
+                        <a href="#reply-{{ forloop.counter }}" class="post-reply">Reply</a>
+                        <a href="{{ post_detail }}" class="post-permalink">Full conversation</a>
+                    </div>
+                </div>
+                <section class="post-comments">
+                    {% if post.comment_set.all.count > 0 %}
+                        <h3 class="replies">Replies:</h3>
+                        {% for comment in post.comment_set.all %}
+                            {% include 'discussion/_comment_detail.html' %}
+                        {% endfor %}
+                    {% endif %}
+                    <div class="comment-form-wrapper" id="reply-{{ forloop.counter }}">
+                        {% comment_form post %}
+                    </div>
+                </section>
+            </article>
+        {% endfor %}
+    </div>
+    <a href="{% url discussion_index %}" class="index-link">All discussions</a>
+{% endblock %}

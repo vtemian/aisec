@@ -1,8 +1,13 @@
-from django.shortcuts import  render
-from dashboard import views as dashboard
+from django.utils.decorators import method_decorator
+from django.views.generic.base import TemplateView
+from discussion.views import SearchFormMixin
+from django.contrib.auth.decorators import login_required
 
-def base(request):
-    if request.user.is_authenticated():
-      return dashboard.open(request)
-    else:
-      return render(request, 'login.html')
+class ProtectedView(TemplateView):
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(ProtectedView, self).dispatch(*args, **kwargs)
+
+
+class HomeView(SearchFormMixin, ProtectedView):
+    template_name = 'index.html'
