@@ -12,3 +12,7 @@ body, .navbar-search .search-query {
 .navbar-search .search-query {
     line-height: 16px;
 }
+
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 100;
+}
