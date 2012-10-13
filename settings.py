@@ -114,8 +114,7 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    
-    'emergency_notifications',
+    'django.contrib.admin',
     'discussion',
     'orderable',
     'notification',

@@ -12,3 +12,5 @@ def send_email(to):
                 "subject": "Missing notification",
                 "text": "Check your account...you have some important stuff to check!"}
   )
+
+
