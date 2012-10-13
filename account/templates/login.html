@@ -1,57 +1,13 @@
 {% extends 'index.html' %}
 {% block extrahead %}
-    <script type="text/javascript" src="{{ STATIC_URL }}js/socket.io-client/dist/socket.io.min.js"></script>
     <script src="{{ STATIC_URL }}js/django-validate.js"></script>
     <script src="{{ STATIC_URL }}js/frontpage.js"></script>
     <script src="{{ STATIC_URL }}js/login.js"></script>
     <script src="{{ STATIC_URL }}js/register.js"></script>
-    <script src="{{ STATIC_URL }}js/jquery.jparallax.min.js" ></script>
-    <script src="{{ STATIC_URL }}js/jquery.event.frame.js" ></script>
-    <script type="text/javascript">
-        jQuery(document).ready(function()
-        {
-            $('#parallax2 .parallax-layer2')
-                    .parallax2({
-                        mouseport: $('#parallax2')
-                    });
-        });
-    </script>
     <link rel="stylesheet" href="{{ STATIC_URL }}css/frontpage.css">
 {% endblock %}
-{% block header %}
-    <div id="logo"><a href="#"><img src="{{ STATIC_URL }}img/logo.png" alt="Avioane" /></a></div>
-
-    <nav id="user_menu">
-        <ol>
-            <li id="register-trigger">Register</li>
-            <li id="login-trigger">Login</li>
-        </ol>
-    </nav>
-
-
-{% endblock %}
 {% block content %}
-    <div id="sub_header_holder">
-    <div class="separator"></div>
-    <div id="sub_header">
-
-        <p>Battle your enemyes in your journey of becoming the best pilot out there. Experience a new way of playing an old game. How high can you reach before going down?</p>
-
-        <div id="sub_header_avion"><img src="{{ STATIC_URL }}img/avion.png" alt="Avion"/></div>
-        <div id="sub_header_online_count_text"></div>
-        <div id="sub_header_online_count">
-            <ul id="online-peoples">
-                <li><h3>0</h3></li>
-                <li><h3>2</h3></li>
-
-                <div class="clearfix"></div>
-            </ul>
-
-        </div>
-
-    </div>
-    <div class="separator"></div>
-        <div id="login">
+       <div id="login">
             <div id="pilot"></div>
                 <ul>
             <form action="{% url account.views.login %}" method="POST" id="login-form">
