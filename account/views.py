@@ -34,26 +34,3 @@ def login(request):
         return HttpResponse(simplejson.dumps({'not': 'Incorect username or password'}))
     else:
         return HttpResponse(simplejson.dumps(form.errors))
-
-def change_password(request):
-    if request.method == 'POST':
-        form = ResetPassword(request.POST)
-        if form.is_valid():
-            try:
-                token = request.POST.get('token')
-                password = request.POST.get('newpassword')
-                passwordReset =  PasswordReset.objects.get(token=token)
-                email = passwordReset.email
-                user = User.objects.get(email=email)
-                user.set_password(password)
-                user.save()
-                passwordReset.done = True
-                passwordReset.save()
-                return HttpResponse(simplejson.dumps({'message':'The password had been change!'}))
-            except Exception:
-                return HttpResponse(simplejson.dumps({'error':'Something went wrong...'}))
-        else:
-            return HttpResponse(simplejson.dumps(form.errors))
-    return HttpResponse('Junky!')
-
-        
