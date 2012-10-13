@@ -1,0 +1,8 @@
+Django==1.4.1
+MySQL-python==1.2.4b5
+PIL==1.1.7
+admin-bootstrap==0.1
+-e git+https://github.com/dandamian/django-discussion.git#egg=django-discussion
+django-orderable==1.1.2
+django-threadedcomments==0.5.3
+-e git+https://github.com/incuna/incuna-notification.git@d8b5bb901e1a91ed540dd44f533dd08047b1dd72#egg=incuna_notification-dev
