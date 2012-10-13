@@ -12,7 +12,7 @@
     {% endblock %}
 </head>
 
-<body>
+<body class="{% block bodyclass %}home{% endblock %}">
 <div class="navbar navbar-fixed-top">
     <div class="navbar-inner">
         <div class="container">
@@ -21,7 +21,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </a>
-            <a class="brand" href="#">AISEC</a>
+            <a class="brand" href="#">KOMMKAT</a>
 
             <div class="nav-collapse collapse">
                 <ul class="nav">
@@ -57,9 +57,9 @@
     <script src="{{ STATIC_URL }}discussion/scripts/discussion.js"></script>
 
     <script>
-        var selectedMenu = "{% block selected_menu %}home{% endblock %}";
         $(document).ready(function() {
-            $('.nav-item-' + selectedMenu).addClass('active');
+
+            $('nav-menu')
         })
     </script>
 
