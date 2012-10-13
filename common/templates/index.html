@@ -1,170 +1,21 @@
-<!doctype html>
-<!-- paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/ -->
-<!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en"> <![endif]-->
-<!--[if IE 7]>    <html class="no-js ie7 oldie" lang="en"> <![endif]-->
-<!--[if IE 8]>    <html class="no-js ie8 oldie" lang="en"> <![endif]-->
-<!-- Consider adding an manifest.appcache: h5bp.com/d/Offline -->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<html>
+  <link rel="shortcut icon" href="{{ STATIC_URL }}favicon.ico">
 
-    <title>Outclan</title>
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <meta name="google-site-verification" content="YMv0Ehlm3TrrzI6T-CoXilb3Mk1OzjPwsyDc93iLa0I" />
-    
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-
-    <link rel="shortcut icon" href="{{ STATIC_URL }}favicon.ico">
-
-    <link rel="stylesheet" href="{{ STATIC_URL }}css/style.css?v=2">
+  <link rel="stylesheet" href="{{ STATIC_URL }}css/style.css?v=2">
 
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js"></script>
     <script src="http://cdn.jquerytools.org/1.2.5/form/jquery.tools.min.js"></script>
-    <script src="{{ STATIC_URL }}js/libs/jquery.ketchup.all.min.js"></script>
-    <script src="{{ STATIC_URL }}js/libs/modernizr-1.7.min.js"></script>
     <script src="{{ STATIC_URL }}js/mylibs/modal.js"></script>
     <script type=text/javascript src="{{ STATIC_URL }}socket.io-client/dist/socket.io.min.js"></script>
-    <script src="{{ STATIC_URL }}js/plugins.js"></script>
-    <script src="{{ STATIC_URL }}js/script.js"></script>
-    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}feedback/css/feedback.css" />
-    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/simplemodal.css" />
-
-    <script type="text/javascript" src="{{ STATIC_URL }}feedback/js/feedback.js"></script>
-    <!-- start Mixpanel -->
-        <script type="text/javascript">var mpq=[];mpq.push(["init","8207a45dae9bd9922da7fb82df67fe4c"]);(function(){var b,a,e,d,c;b=document.createElement("script");b.type="text/javascript";b.async=true;b.src=(document.location.protocol==="https:"?"https:":"http:")+"//api.mixpanel.com/site_media/js/api/mixpanel.js";a=document.getElementsByTagName("script")[0];a.parentNode.insertBefore(b,a);e=function(f){return function(){mpq.push([f].concat(Array.prototype.slice.call(arguments,0)))}};d=["init","track","track_links","track_forms","register","register_once","identify","name_tag","set_config"];for(c=0;c<d.length;c++){mpq[d[c]]=e(d[c])}})();
-        </script>
-    <!-- end Mixpanel -->
-    <script type="text/javascript">
-
-      var _gaq = _gaq || [];
-      _gaq.push(['_setAccount', 'UA-26668030-1']);
-      _gaq.push(['_trackPageview']);
-
-      (function() {
-        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-      })();
-
-    </script>
 
     {% block extrahead %}
     {% endblock %}
 
 </head>
-
 <body>
-    
-  <div id="container">
-
-    <!--Notifications START -->
-    <div id="notifications_bar"></div>
-    <!--Notifications END -->
-
-    <div id="header_holder">
-        <header class="clearfix">
-        <div id="logo"><a href="/"><img src="{{ STATIC_URL }}img/logo.png" alt="Outclan" /></a></div>
-        {% block header %}
-
-        {% endblock %}
-        </header>
-    </div>
-    <div class="separator"></div>
-    
-    <div id="main" role="main" class="clearfix">
-    {% block feedback %}
-        <div id="feedback_container">
-            <div id="feedback_opener"></div>
-            <div id="feedback_slider">
-                <div id="feedback_content">
-                    <a href="#"><img id="closeicon" src="/static/img/close_icon.jpg" alt="Close" height="14"></a>
-                    <img class="userimg" src="/static/feedback/img/user.png" alt="User" height="60">
-                    <h3>Dear {{user.username}} , show us some love!</h3>
-                    <p>Please take the time and report any bugs or inconveniences you encounter or , why not, your ideas and features that would make you love our game even more.</p>
-                    <br>
-                    <br>
-                    So, tell us:<br>
-                    <br>
-
-                    <form id="feedback_form" method="post" action="/feedback"><div style="display:none;">{% csrf_token %}</div>
-                      <div style="display:none">{% csrf_token %}</div>
-                      <input type="hidden" name="path" value="/profile/">
-                      <p>
-                        <textarea name="feedback"></textarea>
-                      </p>
-                      <input type="submit" value="Show Love">
-                    </form>
-
-
-                </div>
-                <div id="feedback_openclose">
-                    <a href="#" id="feedback_action"></a>
-                </div>
-            </div>
-        </div>
-    {% endblock %}
     {% block content %}
-        
     {% endblock %}
-
-    </div>
-
-    <div id="footer_wrap">
-        <div class="separator"></div>
-        <div id="footer_holder">
-            <footer>
-                <ul id="footer_menu">
-                    <li><a id="FAQ-a">FAQ</a></li>
-                    <li><a href="http://www.outclan.wordpress.com">Blog</a></li>
-                    <li><a id="contactus-a">Contact us</a></li>
-                </ul>
-                <div id="mascot"><img src="{{ STATIC_URL }}img/outclanner.png" alt="Mascot" /></div>
-
-                <p id="copyright" >Copyright © 2011 <a href="#"><img src="{{ STATIC_URL }}img/logo_small.png" alt="Outclan" width="58" height="16" border="0"  /></a></p><p id="feedback_footer">
-                <a id="donation" style="cursor:pointer" ><img src="{{ STATIC_URL }}img/heart.png" /> Show us some love!</a></p>
-            </footer>
-        </div>
-    </div>
-  </div>
-    <div id="qanda" style="display:none">
-        <p><b>
-            Q: What is Outclan?
-            </b><br />
-            R: A new type of real-time, location-based socially integrated game.
-        </p>
-        <p><b>Q: What do I need to play?</b><br />
-            R: So far, you only need a web browser, and some Android-based, GPS-enabled mobile phone.
-        </p>
-        <p><b>
-            Q: Why do I need both of those?
-            </b><br />
-            R: It's simple. You get on the website, sign up, and download our app.
-               Then you can start using it to checkin to any venue you go to.
-               You use the app to checkin and the website to manage everything else.
-        </p>
-        <p><b>
-            Q: So, is it only on Android?</b><br />
-            R: For now. We plan to expand to a lot of other systems, mobile, and PC-based.
-        </p>
-        <p><b>
-            Q: Why should I play?</b><br />
-            R: Why not? It's fun, addictive in a positive manner, most importantly, gets you out of the house.
-               Do you want a game that replaces your actual life, giving you a faint impression of fun, or do you want a game that can seamlessly integrate with your life?
-               We offer the second.
-        </p>
-        <p><b>
-            Q: I'm still confused. What can I manage on the website?</b><br />
-            R: Territories, clans, you name it. Take the tour and learn more.
-        </p>
-    </div>
-  <!--[if lt IE 7 ]>
-    <script src="//ajax.googleapis.com/ajax/libs/chrome-frame/1.0.3/CFInstall.min.js"></script>
-    <script>window.attachEvent('onload',function(){CFInstall.check({mode:'overlay'})})</script>
-  <![endif]-->
-
 </body>
 </html>
