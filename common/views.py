@@ -1,8 +1,8 @@
 from django.shortcuts import  render
-from discussion import *
+from discussion import views
 
 def base(request):
     if request.user.is_authenticated():
-        return 
+        return views.disccusions(request)
     else:
         return render(request, 'login.html')
