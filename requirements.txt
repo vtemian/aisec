@@ -3,6 +3,4 @@ MySQL-python==1.2.4b5
 PIL==1.1.7
 -e https://github.com/gkuhn1/django-admin-templates-twitter-bootstrap.git#egg=admin-bootstrap
 -e git+https://github.com/dandamian/django-discussion.git#egg=django-discussion
-django-orderable==1.1.2
-django-threadedcomments==0.5.3
 -e git+https://github.com/incuna/incuna-notification.git@d8b5bb901e1a91ed540dd44f533dd08047b1dd72#egg=incuna_notification-dev
