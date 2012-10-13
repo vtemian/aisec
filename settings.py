@@ -1,4 +1,5 @@
 # Django settings for aisec project.
+import os
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -56,11 +57,13 @@ MEDIA_URL = ''
 # Don't put anything in this directory yourself; store your static files
 # in apps' "static/" subdirectories and in STATICFILES_DIRS.
 # Example: "/home/media/media.lawrence.com/static/"
-STATIC_ROOT = ''
 
 # URL prefix for static files.
 # Example: "http://media.lawrence.com/static/"
 STATIC_URL = '/static/'
+
+PROJECT_ROOT = os.path.abspath(os.path.dirname(__file__))
+STATIC_ROOT = os.path.abspath(os.path.join(PROJECT_ROOT, '..', 'static'))
 
 # Additional locations of static files
 STATICFILES_DIRS = (
@@ -82,7 +85,7 @@ SECRET_KEY = '%s)!f$lg4&amp;wcsxnn)h113s_xi4m^c*t*)gc44z6kgy&amp;3x$5o4m'
 
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
-    'django.template.loaders.filesystem.Loader',
+#    'django.template.loaders.filesystem.Loader',
     'django.template.loaders.app_directories.Loader',
 #     'django.template.loaders.eggs.Loader',
 )
@@ -111,6 +114,11 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'admin_bootstrap',
+    'django.contrib.admin',
+    'discussion',
+    'orderable',
+    'notification',
     'account',
     'common',
 )
