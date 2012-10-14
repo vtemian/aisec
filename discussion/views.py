@@ -105,7 +105,7 @@ class DiscussionView(SearchFormMixin, DetailView):
       context = self.get_context_data(object=self.object, subscribe_form=form)
       tag = Tag.objects.get(name="private")
       context['filtered_posts'] = context['object'].post_set.exclude(tag=tag).all()
-      context['inbox'] = True
+
       return self.render_to_response(context)
 
     def post(self, request, *args, **kwargs):
@@ -134,6 +134,7 @@ class InboxView(DiscussionView):
 
     form = self.get_notice_form(self.notice_form)
     context = self.get_context_data(object=self.object, subscribe_form=form)
+    context['inbox'] = True
     tags = Tag.objects.filter(user=request.user)
     context['filtered_posts'] = context['object'].post_set.filter(tag__in=tags, user=request.user).all()
     return self.render_to_response(context)
