@@ -21,9 +21,9 @@
 
             <div class="nav-collapse collapse">
                 <ul class="nav">
-                    <li class="nav-item-home"><a href="{% url home %}">Inbox</a></li>
-                    <li class="nav-item-discussion"><a href="{% url discussion slug='default' %}">Discussions</a></li>
-                    <li><a href="#about">People</a></li>
+                    <li class="nav-item-home"><a href="{% url home %}"><i class="icon-inbox icon-white"></i> Inbox</a></li>
+                    <li class="nav-item-discussion"><a href="{% url discussion slug='default' %}"><i class="icon-comment icon-white"></i> Discussions</a></li>
+                    <li><a href="#about"><i class="icon-user icon-white"></i> People</a></li>
                 </ul>
 
                 <form action="{% url discussion_search %}" method="POST" class="forum-search-form navbar-search pull-left">

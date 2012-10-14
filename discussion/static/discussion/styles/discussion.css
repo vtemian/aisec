@@ -367,7 +367,7 @@ body.discussion .post-list .post:hover .comment-count, body.discussion .post-lis
     margin: 0;
     overflow: hidden;
     box-shadow: 0 -2px 8px -3px rgba(0, 0, 0, 0.1) inset;
-    height: 5px;
+    height: 25px;
 }
 
 .airmail {

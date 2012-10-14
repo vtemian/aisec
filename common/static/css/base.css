@@ -22,3 +22,11 @@ body, .navbar-search .search-query, input, button, select, textarea {
 h1, h2, h3, h4, h5, h6 {
     font-weight: 100;
 }
+
+.nav .icon-white {
+    opacity: 0.5;
+}
+
+.nav :hover .icon-white, .nav .active .icon-white {
+    opacity: 1;
+}
