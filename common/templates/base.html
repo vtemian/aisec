@@ -3,10 +3,10 @@
 <head>
     <title>AISEC</title>
     <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/bootstrap.css"/>
+    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/chosen.css"/>
     <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/base.css"/>
     {% load selectable_tags %}
     {% include_jquery_libs %}
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300,400,700' rel='stylesheet' type='text/css'>
 
     {% block extrahead %}
     {% endblock %}
@@ -28,7 +28,7 @@
                 <ul class="nav" data-selected-item="{% block menu_item %}home{% endblock %}" style="width: 90%">
                     <li class="nav-item-inbox"><a href="{% url inbox slug='default' %}"><i class="icon-inbox icon-white"></i> Inbox</a></li>
                     <li class="nav-item-discussion"><a href="{% url discussion slug='default' %}"><i class="icon-comment icon-white"></i> Public Discussions</a></li>
-                    <li><a href="#about"><i class="icon-user icon-white"></i> People</a></li>
+                    <li><a class="nav-item-profiles" href="{% url profiles_profile_list %}"><i class="icon-user icon-white"></i> People</a></li>
                     <li style="float:right"><a href="{% url logout %}"><i class="icon-off icon-white"></i> Logout</a></li>
                 </ul>
 
@@ -53,6 +53,7 @@
     <script type="text/javascript" src="{{ STATIC_URL }}scripts/plugins/jquery.form.js"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}scripts/plugins/jquery.autogrow.js"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}scripts/plugins/jquery.placeholder.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}js/chosen.jquery.js"></script>
     <script src="{{ STATIC_URL }}discussion/scripts/discussion.js"></script>
 
     <script>

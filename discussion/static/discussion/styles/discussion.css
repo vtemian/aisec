@@ -39,7 +39,6 @@ body.discussion .post-form,
 body.discussion .comment-form {
     margin: 0;
     position: relative;
-    overflow: hidden;
 }
 
 body.discussion .modal-body {
@@ -319,6 +318,15 @@ body.discussion #forum-content {
     overflow-y: auto;
 }
 
+.content-inner {
+    padding: 0px;
+    position: absolute;
+    top: 45px;
+    width: 600px;
+    bottom: 10px;
+    overflow-y: auto;
+}
+
 body.discussion .post-list .comment-count {
     /*background-color: #222;*/
     padding: 5px 8px;
@@ -351,6 +359,15 @@ body.discussion .post-list .post:hover .comment-count {
     font-size: 10px;
     margin-left: 34px;
     margin-top: -9px;
+}
+
+.profiles .avatar {
+    width: 120px;
+    padding: 8px 8px 4px;
+    font-size: 18px;
+}
+.profiles .avatar img {
+    width: 120px;
 }
 
 .avatar {
@@ -482,9 +499,9 @@ body.discussion #forum-content .post .user-name {
 }
 
 .post-list .search-query:focus, .post-list .search-query.focused {
-    color: #333;
-    text-shadow: 0 1px 0 white;
-    background-color: white;
+    color: #fff;
+    /*text-shadow: 0 1px 0 white;*/
+    /*background-color: white;*/
     border: 0;
     outline: 0;
     margin-bottom: 7px;
@@ -500,4 +517,15 @@ body.discussion #forum-content .post .user-name {
 
 .icon-remove-custom{
     margin-left: 5px;
+}
+
+.tags {
+    position: absolute;
+    left: 118px;
+    top: 27px;
+}
+
+.label.label-info {
+    opacity: 0.7;
+    font-size: 11px;
 }

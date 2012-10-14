@@ -99,3 +99,5 @@ def profile(request, profile_id):
 def help(request):
     context = user_menu(request)
     return render_to_response('help.html', context, context_instance=RequestContext(request))
+
+

@@ -4,14 +4,24 @@
   {{ form.body }}
   {{ form.body.errors }}
 </div>
-<div class="file-upload-field">
-  <label for="id_{{ form.attachment.html_name }}">Add a file:</label>
-  {{ form.attachment }}
-  {{ form.attachment.errors }}
+<div id="tags">
+    {{ form.tags }}
 </div>
-<div id="tags"></div>
-{{ form.tags }}
-{{ tag_search.media.css }}
-{{ tag_search.media.js }}
 <script type="text/javascript" src="{{ STATIC_URL }}js/insert.js"></script>
-{{ tag_search.as_p }}
+<script>
+    $(document).ready(function() {
+        $('#tags select').chosen()
+
+        var size = 0;
+        var dialog = $('#new-post-dialog .modal-body');
+        $('#tags .default').on('focus', function() {
+            dialog.stop();
+            size = dialog.height();
+            dialog.animate({height: 300});
+        }).on('blur', function() {
+            dialog.stop();
+            dialog.animate({height: size});
+        });
+
+    })
+</script>
