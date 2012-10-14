@@ -126,6 +126,7 @@ INSTALLED_APPS = (
     'selectable',
     'common',
     'tags',
+    'south'
 )
 
 # A sample logging configuration. The only tangible logging
