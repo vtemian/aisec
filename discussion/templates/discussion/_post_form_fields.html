@@ -12,13 +12,17 @@
     $(document).ready(function() {
         $('#tags select').chosen()
 
-        var size = 0;
         var dialog = $('#new-post-dialog .modal-body');
+        var size = 0;
+
         $('#tags .default').on('focus', function() {
             dialog.stop();
-            size = dialog.height();
+            if (size == 0) {
+                size = dialog.height();
+            }
             dialog.animate({height: 300});
         }).on('blur', function() {
+            console.log('blur', dialog);
             dialog.stop();
             dialog.animate({height: size});
         });

@@ -51,8 +51,7 @@ class PostForm(forms.ModelForm):
     self.fields['tags'] = forms.ModelMultipleChoiceField(queryset=Tag.objects.all())
 
   def save(self, force_insert=False, force_update=False, commit=True):
-    post = super(PostForm, self).save(commit=False)
-    post.save()
+    post = super(PostForm, self).save(commit)
 
     for tag in self.cleaned_data['tags']:
         TagsPost.objects.create(post=post, tag=tag)
