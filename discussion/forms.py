@@ -36,7 +36,7 @@ class CommentForm(forms.ModelForm):
 
 
 class PostForm(forms.ModelForm):
-  tags = forms.CharField(label='', widget=forms.HiddenInput(attrs={'id': _('hidden_tags')}))
+  tags = forms.CharField(label='', widget=forms.HiddenInput(attrs={'id': _('hidden_tags')}), required=False)
   class Meta:
       exclude = ('user', 'discussion')
       model = Post
@@ -48,8 +48,10 @@ class PostForm(forms.ModelForm):
 
   def save(self, force_insert=False, force_update=False, commit=True):
     post = super(PostForm, self).save(commit=False)
-    tags = self.data['tags'].split(';')
     post.save()
+
+    tags = self.data['tags'].split(';')
+
     for tag in tags:
       try:
         new_tag = Tag.objects.get(name=tag)

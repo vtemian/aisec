@@ -103,8 +103,8 @@ class DiscussionView(SearchFormMixin, DetailView):
 
       form = self.get_notice_form(self.notice_form)
       context = self.get_context_data(object=self.object, subscribe_form=form)
-      tag = Tag.objects.get(name="private")
-      context['filtered_posts'] = context['object'].post_set.exclude(tag=tag).all()
+      tags = Tag.objects.all()
+      context['filtered_posts'] = context['object'].post_set.exclude(tag__in=tags).all()
 
       return self.render_to_response(context)
 
