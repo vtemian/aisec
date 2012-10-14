@@ -36,7 +36,7 @@ class CommentForm(forms.ModelForm):
 
 
 class PostForm(forms.ModelForm):
-  tags = forms.CharField(label='', widget=forms.HiddenInput(attrs={'id': _('hidden_tags')}), required=False)
+#  tags = forms.CharField()
   class Meta:
       exclude = ('user', 'discussion')
       model = Post
@@ -46,20 +46,18 @@ class PostForm(forms.ModelForm):
 
   clean_attachment = _clean_attachment
 
+  def __init__(self, *args, **kwargs):
+    super(PostForm, self).__init__(*args, **kwargs)
+    self.fields['tags'] = forms.ModelMultipleChoiceField(queryset=Tag.objects.all())
+
   def save(self, force_insert=False, force_update=False, commit=True):
     post = super(PostForm, self).save(commit=False)
     post.save()
 
-    tags = self.data['tags'].split(';')
+    for tag in self.cleaned_data['tags']:
+        TagsPost.objects.create(post=post, tag=tag)
 
-    for tag in tags:
-      try:
-        new_tag = Tag.objects.get(name=tag)
-        TagsPost.objects.create(post=post, tag=new_tag)
-      except Exception:
-        pass
-    return  post
-
+    return post
 
 class SearchForm(forms.Form):
     search = forms.CharField(widget=forms.TextInput(attrs={'class':'search-query', 'placeholder': 'Search for messages'}))

@@ -39,7 +39,6 @@ body.discussion .post-form,
 body.discussion .comment-form {
     margin: 0;
     position: relative;
-    overflow: hidden;
 }
 
 body.discussion .modal-body {
