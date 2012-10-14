@@ -416,3 +416,9 @@ body.discussion #forum-content .post .user-name {
 .comment-body {
     margin-left: 125px
 }
+
+.reply-btn {
+    position: fixed;
+    margin-left: 500px;
+    z-index: 10;
+}
