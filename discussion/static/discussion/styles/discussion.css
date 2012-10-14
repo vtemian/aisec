@@ -523,5 +523,10 @@ body.discussion #forum-content .post .user-name {
 .tags {
     position: absolute;
     left: 118px;
-    top: 26px;
+    top: 27px;
+}
+
+.label.label-info {
+    opacity: 0.7;
+    font-size: 11px;
 }
