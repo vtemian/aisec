@@ -23,14 +23,6 @@
                                     <h5 class="user-name">{{ post.user.get_full_name }}</h5>
                                     <time pubdate="{{ post.time }}" class="post-date">{{ post.time|date:"d M Y" }}</time>
                                 </div>
-                                <div class="tags">
-                                    {% if post.tag_set.all %}
-                                        Tags:
-                                        {% for tag in post.tag_set.all %}
-                                            {{ tag }}
-                                        {% endfor %}
-                                    {% endif %}
-                                </div>
                             </header>
                             <section class="post-body">
                                 {{ post.body|truncatechars:70|urlize }}

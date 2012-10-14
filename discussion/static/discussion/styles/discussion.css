@@ -519,3 +519,9 @@ body.discussion #forum-content .post .user-name {
 .icon-remove-custom{
     margin-left: 5px;
 }
+
+.tags {
+    position: absolute;
+    left: 118px;
+    top: 26px;
+}
