@@ -1,15 +1,26 @@
-<form class="comment-form" action="{% url discussion_post pk=post.pk discussion_slug=post.discussion.slug %}" method="POST" enctype="multipart/form-data">
-    <h3>Add new reply:</h5>
-    {% csrf_token %}
-    {{ form.non_field_errors }}
-    <div class="body-field">
-      {{ form.body }}
-      {{ form.body.errors }}
+<div class="modal hide fade" id="reply-dialog">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h3>Reply</h3>
     </div>
-    <div class="file-upload-field">
-      <label for="id_{{ form.attachment.html_name }}">Add a file:</label>
-      {{ form.attachment }}
-      {{ form.attachment.errors }}
+    <div class="modal-body">
+        <form class="comment-form" action="{% url discussion_post pk=post.pk discussion_slug=post.discussion.slug %}" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.non_field_errors }}
+            <div class="body-field">
+                {{ form.body }}
+                {{ form.body.errors }}
+            </div>
+            <div class="file-upload-field">
+                <label for="id_{{ form.attachment.html_name }}">Add a file:</label>
+                {{ form.attachment }}
+                {{ form.attachment.errors }}
+            </div>
+        </form>
     </div>
-    <span class="button"><input class="btn" type="submit" value="Comment"></span>
-</form>
+    <div class="modal-footer">
+        <a href="#" class="btn" data-dismiss="modal">Close</a>
+        <a href="#" class="btn btn-primary save-btn">Send Reply</a>
+    </div>
+</div>
+

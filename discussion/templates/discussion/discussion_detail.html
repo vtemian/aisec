@@ -32,15 +32,39 @@
 
 {% block extra_script %}
 <script>
+function loadUrl(url) {
+    $('#forum-content').load(url + ' .post', function() {
+        $('.reply-btn').on('click', function() {
+            $('#reply-dialog').modal();
+            $('#reply-dialog .save-btn').on('click', function() {
+                var saveBtn = $(this);
+                saveBtn.attr('disabled', 'disabled').text('Sending Reply...');
+                $('#reply-dialog .comment-form').ajaxSubmit({
+                    success: function() {
+                        $('#reply-dialog').modal('hide');
+                        loadUrl(url);
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        saveBtn.removeAttr('disabled').text('Send Reply');
+                        var text = $(jqXHR.responseText);
+                        $('#reply-dialog .modal-body').replaceWith(text.find('.modal-body'))
+                    }
+                });
+            });
+        })
+    });
+}
+
 $(document).ready(function() {
     $('.post-list .post').click(function() {
         $('.post.active').removeClass('active');
         $(this).addClass('active');
         url = $(this).data('url');
-        $('#forum-content').load(url + ' .post');
+        loadUrl(url);
     })
 
     $($('.post').get(0)).trigger('click');
+
 })
 </script>
 {% endblock %}
