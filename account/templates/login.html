@@ -14,65 +14,32 @@
 {% block content %}
        <div id="login">
        <img src="{{ STATIC_URL }}img/logo2.png"/>
-            <div id="pilot"></div>
-                <ul>
             <form action="{% url account.views.login %}" method="POST" id="login-form">
-                <li>{% csrf_token %}</li>
-                <li><div id="general" class="error"></div></li>
-                <li>
+                {% csrf_token %}
+                <div id="general" class="error"></div>
                     <label for="username" class="label">username:</label>
-
-                </li>
-                <li>
                     <input type="text" id="username" name="username" class="user_login_input"/>
-                </li>
-                <li>
                     <label for="password" class="label">password:</label>
-
-                </li>
                     <input type="password" id="password" name="password" class="user_login_input" />
-                </li>
-                <li><input type="submit" value="login" class="submit" /></li>
+                <input type="submit" value="login" class="submit" />
             </form>
-                </ul>
+                
         </div>
         <div id="register"><div id="avionas"></div>
-                <ul>
             <form action="{% url account.views.register %}" id="sign_up_form" method="POST">
-                <li>{% csrf_token %}</li>
-                <li><div id="general" class="error"></div></li>
-                <li>
+                {% csrf_token %}
+                <div id="general" class="error"></div>
                     <label for="username" class="label">username:</label>
-                </li> <li>
                     <input type="text" id="username" name="username" class="user_login_input"/>
-                </li>
-                <li>
                     <label for="password" class="label">password:</label>
-                </li> <li>
                     <input type="password" id="password" name="password" class="user_login_input" />
-                </li>
-                <li>
                     <label for="email" class="label">email:</label>
-                </li> <li>
                     <input type="email" id="email" name="email" class="user_login_input" />
-                </li>
-                <li><input type="submit" value="register" class="submit" /></li>
+                <input type="submit" value="register" class="submit" />
 
             </form>
-                </ul>
+                
         </div>
-    
-    </div>
-    <div id="insula">
-        <div id="nor"></div>
-        <div id="nori"></div>
-        <div id="avion1"></div>
-        <div id="avion2"></div>
-        <div id="avion3"></div>
-        <div id="bombe"></div>
-    </div>
-
-</div>
 
 {% endblock %}
 
