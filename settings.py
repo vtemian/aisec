@@ -120,7 +120,6 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     'discussion',
     'orderable',
-    'gunicorn',
     'notification',
     'account',
     'selectable',

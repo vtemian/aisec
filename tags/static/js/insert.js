@@ -8,7 +8,7 @@ $(document).ready(function(){
         if (result == 'True'){
           if ($.inArray(val, tags) == -1){
             $('#hidden_tags').val($('#hidden_tags').val() + val + ';');
-            $('#tags').append('<label>'+val+'<span data-value="'+val+'" class="delete-tags">-delete-</label>');
+            $('#tags').append('<label>'+val+'<span data-value="'+val+'" class="delete-tags"><i class="icon-remove icon-remove-custom"></i></label>');
             tags.push(val);
           }else{
             console.log('Already this tag');
