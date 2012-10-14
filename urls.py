@@ -13,6 +13,8 @@ urlpatterns = patterns('',
     url(r'^logout/?$',  'django.contrib.auth.views.logout_then_login'),
     url(r'^user/register/$',  'account.views.register'),
     url(r'^discussion/', include('discussion.urls')),
+    url(r'^tag/', include('tags.urls')),
     url(r'^notifications/', include('notification.urls')),
     url(r'^admin/', include(admin.site.urls)),
+    url(r'^selectable/', include('selectable.urls')),
 )

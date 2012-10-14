@@ -10,6 +10,7 @@ from discussion.models import Discussion, Comment, Post
 from discussion.utils import class_view_decorator
 
 from notification.models import get_notification_settings
+from tags.forms import TagForm
 
 
 class SearchFormMixin(object):
@@ -92,6 +93,8 @@ class DiscussionView(SearchFormMixin, DetailView):
     def get_context_data(self, **kwargs):
         context = super(DiscussionView, self).get_context_data(**kwargs)
         context.update({'form': PostForm()})
+        context.update({'tag_search': TagForm()})
+
         return context
 
     def get(self, request, *args, **kwargs):

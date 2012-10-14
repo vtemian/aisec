@@ -120,6 +120,7 @@ INSTALLED_APPS = (
     'orderable',
     'notification',
     'account',
+    'selectable',
     'common',
     'tags',
 )
