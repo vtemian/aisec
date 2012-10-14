@@ -4,6 +4,7 @@ from django.http import HttpResponseRedirect
 from django.views.generic import CreateView, DetailView, ListView, FormView
 from django.views.generic.list import BaseListView
 from django.db.models import Q
+from account.middleware import LazyUser
 
 from discussion.forms import CommentForm, PostForm, SearchForm, SubscribeForm
 from discussion.models import Discussion, Comment, Post
@@ -22,7 +23,6 @@ class SearchFormMixin(object):
     def get_context_data(self, **kwargs):
         context = super(SearchFormMixin, self).get_context_data(**kwargs)
         context['search_form'] = self.get_search_form(SearchForm)
-
         return context
 
     def get_search_form(self, form_class):
@@ -104,10 +104,7 @@ class DiscussionView(SearchFormMixin, DetailView):
         form = self.get_notice_form(self.notice_form)
         context = self.get_context_data(object=self.object, subscribe_form=form)
         tags = Tag.objects.filter(user=request.user)
-        objects = []
-        for tag in tags:
-          objects += context['object'].post_set.filter(tag__name=tag.name, user=request.user).all()
-        context['filtered_posts'] = objects
+        context['filtered_posts'] = context['object'].post_set.filter(tag__in=tags, user=request.user).all()
         return self.render_to_response(context)
 
     def post(self, request, *args, **kwargs):
@@ -124,6 +121,21 @@ class DiscussionView(SearchFormMixin, DetailView):
         else:
             context = self.get_context_data(object=self.object, subscribe_form=form)
             return self.render_to_response(context)
+
+
+@class_view_decorator(login_required)
+class InboxView(DiscussionView):
+  model = Discussion
+  notice_form = SubscribeForm
+
+  def get(self, request, *args, **kwargs):
+    self.object = self.get_object()
+
+    form = self.get_notice_form(self.notice_form)
+    context = self.get_context_data(object=self.object, subscribe_form=form)
+    tag = Tag.objects.get(name="private")
+    context['filtered_posts'] = context['object'].post_set.exclude(tag=tag).all()
+    return self.render_to_response(context)
 
 @class_view_decorator(login_required)
 class CreatePost(DiscussionMixin, CreateView):
@@ -145,7 +157,6 @@ class CreatePost(DiscussionMixin, CreateView):
 @class_view_decorator(login_required)
 class PostView(DiscussionMixin, CreateView):
     form_class = CommentForm
-
     model = Comment
     template_name = 'discussion/post_detail.html'
     ajax_form_valid_template_name = 'discussion/_comment_detail.html'
@@ -170,10 +181,9 @@ class PostView(DiscussionMixin, CreateView):
         return context
 
     def get_post(self, pk=None):
-
-      if pk is None:
-        pk = self.kwargs['pk']
-      return Post.objects.get(pk=pk)
+        if pk is None:
+            pk = self.kwargs['pk']
+        return Post.objects.get(pk=pk)
 
     def get_success_url(self):
         kwargs = {

@@ -1,52 +1,136 @@
 {% extends "discussion/base.html" %}
 {% load discussiontags %}
 
+
+{% block sidebar %}
+    <div class="post-list">
+        <div class="sidebar-header">
+            <button class="btn btn-primary btn-small new-post-btn"><i class="icon-edit icon-white"></i></button>
+            <i class="icon-search icon-white"></i>
+            <form action="{% url discussion_search %}" method="POST" class="forum-search-form navbar-search pull-left">
+                {% csrf_token %}
+                {{ search_form.search }}
+            </form>
+        </div>
+        <div id="post-list-wrap">
+            <div id="post-list-inner">
+                {% for post in filtered_posts %}
+                    <article class="post post-list-{{ forloop.counter }}" id="post-{{ post.id }}" data-url="{{ post.get_absolute_url }}">
+                        {% url discussion_post pk=post.pk discussion_slug=object.slug as post_detail %}
+                        <div class="post-info">
+                            <header class="post-header">
+                                <div class="post-author">
+                                    <h5 class="user-name">{{ post.user.get_full_name }}</h5>
+                                    <time pubdate="{{ post.time }}" class="post-date">{{ post.time|date:"d M Y" }}</time>
+                                </div>
+                                <div class="tags">
+                                    {% if post.tag_set.all %}
+                                        Tags:
+                                        {% for tag in post.tag_set.all %}
+                                            {{ tag }}
+                                        {% endfor %}
+                                    {% endif %}
+                                </div>
+                            </header>
+                            <section class="post-body">
+                                {{ post.body|truncatechars:70|urlize }}
+                            </section>
+
+                            {% if post.comment_set.all.count %}
+                                <div class="comment-count">{{ post.comment_set.all.count}}</div>
+                            {% endif %}
+                        </div>
+                    </article>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <div class="modal hide fade" id="new-post-dialog">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h3>New Message</h3>
+        </div>
+        <div class="modal-body">
+            <form action="{% url discussion_add_post discussion_slug=discussion.slug %}" method="POST" enctype="multipart/form-data" class="post-form">
+                {% include 'discussion/_post_form_fields.html' %}
+            </form>
+        </div>
+        <div class="modal-footer">
+            <a href="#" class="btn" data-dismiss="modal">Close</a>
+            <a href="#" class="btn btn-primary save-btn">Post Message</a>
+        </div>
+    </div>
+
+{% endblock %}
+
 {% block forum_content %}
-    <div class="forum-search">
-        <h2>Search</h2>
-        {% include 'discussion/_search_form.html' %}
-    </div>
-    
-    <h2>{{ object }}</h2>
-    <div class="posts_wrapper">
-        <form action="{% url discussion_add_post discussion_slug=object.slug %}" method="POST" enctype="multipart/form-data" class="post-form">
-            <h3>Add new post:</h3>
-            {% include 'discussion/_post_form_fields.html' %}
-        </form>
+{% endblock %}
 
-        {% for post in filtered_posts %}
-            <article class="post post-list-{{ forloop.counter }}" id="post-{{ post.id }}">
-                {% url discussion_post pk=post.pk discussion_slug=object.slug as post_detail %}
-                <div class="post-info">
-                    {% include 'discussion/_post_detail.html' %}
-                    <div class="comment-count">{{ post.comment_set.all.count|default:"No" }} repl{{ post.comment_set.all.count|pluralize:"y,ies" }}</div>
-                    <div class="post-links">
-                        <a href="#reply-{{ forloop.counter }}" class="post-reply">Reply</a>
-                        <a href="{{ post_detail }}" class="post-permalink">Full conversation</a>
-                    </div>
-                    <div class="tags">
-                        {% if post.tag_set.all %}
-                            Tags:
-                            {% for tag in post.tag_set.all %}
-                                {{ tag }}
-                            {% endfor %}
-                        {% endif %}
-                    </div>
-                </div>
-                <section class="post-comments">
-                    {% if post.comment_set.all.count > 0 %}
-                        <h3 class="replies">Replies:</h3>
-                        {% for comment in post.comment_set.all %}
-                            {% include 'discussion/_comment_detail.html' %}
-                        {% endfor %}
-                    {% endif %}
-                    <div class="comment-form-wrapper" id="reply-{{ forloop.counter }}">
-                        {% comment_form post %}
-                    </div>
-                </section>
-            </article>
-        {% endfor %}
+{% block extra_script %}
+    <script>
+        function loadUrl(url) {
+            $('#forum-content').load(url + ' .post', function() {
+                $('.reply-btn').on('click', function() {
+                    $('#reply-dialog').modal();
+                    $('#reply-dialog .save-btn').on('click', function() {
+                        var saveBtn = $(this);
+                        saveBtn.attr('disabled', 'disabled').text('Sending Reply...');
+                        $('#reply-dialog .comment-form').ajaxSubmit({
+                            success: function() {
+                                $('#reply-dialog').modal('hide');
+                                loadUrl(url);
+                                $('#post-list-wrap').load('{% url discussion slug=discussion.slug %} #post-list-inner', function() {
+                                    init();
+                                });
+                            },
+                            error: function(jqXHR, textStatus, errorThrown) {
+                                saveBtn.removeAttr('disabled').text('Send Reply');
+                                var text = $(jqXHR.responseText);
+                                $('#reply-dialog .modal-body').replaceWith(text.find('.modal-body'))
+                            }
+                        });
+                    });
+                })
+            });
+        }
 
-    </div>
-    <a href="{% url discussion_index %}" class="index-link">All discussions</a>
+
+        function init() {
+            $('.post-list .post').click(function() {
+                $('.post.active').removeClass('active');
+                $(this).addClass('active');
+                url = $(this).data('url');
+                loadUrl(url);
+            })
+        }
+
+        $(document).ready(function() {
+            init();
+
+            $($('.post').get(0)).trigger('click');
+
+            $('.new-post-btn').on('click', function() {
+                $('#new-post-dialog').modal();
+                $('#new-post-dialog .save-btn').on('click', function() {
+                    var saveBtn = $(this);
+                    saveBtn.attr('disabled', 'disabled').text('Posting Message...');
+                    $('#new-post-dialog .post-form').ajaxSubmit({
+                        success: function() {
+                            $('#new-post-dialog').modal('hide');
+                            $('#post-list-wrap').load('{% url discussion slug=discussion.slug %} #post-list-inner', function() {
+                                init();
+                            });
+                        },
+                        error: function(jqXHR, textStatus, errorThrown) {
+                            saveBtn.removeAttr('disabled').text('Send Reply');
+                            var text = $(jqXHR.responseText);
+                            $('#new-post-dialog .modal-body').replaceWith(text.find('.modal-body'))
+                        }
+                    });
+                })
+            })
+
+        })
+    </script>=
 {% endblock %}

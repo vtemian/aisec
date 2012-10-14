@@ -1,6 +1,6 @@
 $(document).ready(function(){
   var tags = [];
-  $('#id_autocomplete')[1].keypress(function(e){
+  $('#id_autocomplete').keypress(function(e){
     if(e.keyCode == 13){
       val = $(this).val();
       $input = $(this);

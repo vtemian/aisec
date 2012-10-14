@@ -1,6 +1,10 @@
+{% load gravatar %}
 <div class="comment" id="comment-{{ comment.id }}">
-    <h5 class="user-name">{{ comment.user.get_full_name }}</h5>
-    <p class="comment-body">{{ comment.body|urlize|linebreaksbr }}</p>
+    <a href="#" class="avatar" title="{{ comment.user.get_full_name }}"><img src="{% gravatar_for_user comment.user 60 %}"/><div>{{ comment.user.get_full_name }}</div></a>
+    <div class="avatar-doppleganger"></div>
+    <p class="comment-body">
+        {{ comment.body|urlize|linebreaksbr }}
+    </p>
     <time datetime="{{ comment.time }}" class="comment-date">{{ comment.time|timesince }} ago</time>
     {% if comment.attachment %}
         <div class="comment-attachment">
