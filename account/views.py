@@ -18,11 +18,9 @@ def register(request):
                 user = User.objects.create_user(username=request.POST['username'], password=request.POST['password'], email=request.POST['email'])
                 user.save()
 
-                gravatar_url = "http://www.gravatar.com/avatar/" + hashlib.md5(request.POST.get('email')).hexdigest()
-
                 userprofile = UserProfile.objects.create(user = user)
                 auth_login(request,authenticate(username=request.POST['username'], password=request.POST['password']))
-                return HttpResponse(simplejson.dumps({'ok': '/'}))
+                return HttpResponse(simplejson.dumps({'ok': '/profiles/edit'}))
             except Exception as exp:
                 return HttpResponse(exp.message)
         else:
