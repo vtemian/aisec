@@ -500,9 +500,9 @@ body.discussion #forum-content .post .user-name {
 }
 
 .post-list .search-query:focus, .post-list .search-query.focused {
-    color: #333;
-    text-shadow: 0 1px 0 white;
-    background-color: white;
+    color: #fff;
+    /*text-shadow: 0 1px 0 white;*/
+    /*background-color: white;*/
     border: 0;
     outline: 0;
     margin-bottom: 7px;
