@@ -13,8 +13,11 @@
                         <div class="position">{{ profile.position }}</div>
                         <div class="position"><i class="icon-phone"></i> {{ profile.phone }}</div>
                         <div class="position"><i class="icon-envelope"></i> {{ profile.user.email }}</div>
-                        <br/>
                         <div class="position"><i class="icon-briefcase"></i> {{ profile.university }}</div>
+
+                        {% for tag in profile.user.tag_set.all %}
+                            <span class="label label-info">{{ tag }}</span>
+                        {% endfor %}
                     </a>
         {% endfor %}
     </div>
@@ -59,6 +62,11 @@
         width: 1200px;
         left: 50%;
         margin-left: -563px;
+    }
+
+    .profiles .label {
+        font-family: helvetica, sans-serif;
+        font-size: 10px;
     }
 
 </style>
