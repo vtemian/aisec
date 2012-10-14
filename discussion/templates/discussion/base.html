@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 
 {% block bodyclass %}discussion{% endblock %}
+{% block menu_item %}{% if inbox %}inbox{% else %}discussion{% endif %}{% endblock %}
 
 {% block content %}
   <div id="forum-content">
