@@ -1,1 +1,5 @@
 django-orderable==1.1.2
+django-selectable==0.6.0
+Django==1.4.1
+MySQL-python==1.2.4b5
+PIL==1.1.7
