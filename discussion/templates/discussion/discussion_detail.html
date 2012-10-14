@@ -72,6 +72,9 @@ function loadUrl(url) {
                     success: function() {
                         $('#reply-dialog').modal('hide');
                         loadUrl(url);
+                        $('#post-list-wrap').load('{% url discussion slug=discussion.slug %} #post-list-inner', function() {
+                            init();
+                        });
                     },
                     error: function(jqXHR, textStatus, errorThrown) {
                         saveBtn.removeAttr('disabled').text('Send Reply');
