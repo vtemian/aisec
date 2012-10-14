@@ -3,9 +3,19 @@ from django.db import models
 from django.contrib.auth.models import User
 import json
 import urllib
+from tags.models import Tag
 
 class UserProfile(models.Model):
-    user = models.OneToOneField(User)
-    gravatar_url = models.CharField(max_length=100)
-    facebook_id = models.BigIntegerField(null=True)
-    access_token = models.CharField(max_length=150)
+  user = models.OneToOneField(User)
+
+  position = models.CharField(max_length=30, null=True)
+  phone = models.CharField(max_length=30, null=True)
+  adress = models.CharField(max_length=30, null=True)
+  how_long_time_in_aeisec = models.CharField(max_length=30, null=True)
+  university = models.CharField(max_length=30, null=True)
+
+  tag = models.ManyToManyField(Tag, through="account.TagUser")
+
+class TagUser(models.Model):
+  user = models.ForeignKey(UserProfile)
+  tag = models.ForeignKey(Tag)

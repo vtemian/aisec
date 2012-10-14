@@ -20,7 +20,7 @@ def register(request):
 
                 gravatar_url = "http://www.gravatar.com/avatar/" + hashlib.md5(request.POST.get('email')).hexdigest()
 
-                userprofile = UserProfile.objects.create(user = user, gravatar_url = gravatar_url)
+                userprofile = UserProfile.objects.create(user = user)
                 auth_login(request,authenticate(username=request.POST['username'], password=request.POST['password']))
                 return HttpResponse(simplejson.dumps({'ok': '/'}))
             except Exception as exp:

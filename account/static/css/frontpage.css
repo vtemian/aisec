@@ -51,6 +51,11 @@ div.frm .input_text {
 }
 
 #create-account{
+  cursor: pointer;
+  margin-top: 5px;
+  height: 35px;
+  opacity: 0.5;
+  background-color: black;
   color: white;
   padding-top: 10px;
   text-align: center;

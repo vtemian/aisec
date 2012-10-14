@@ -3,6 +3,7 @@ from django.conf.urls.defaults import patterns, include, url
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
 from django.views.generic import RedirectView
+from account.form import ProfileForm
 from common.views import HomeView
 
 admin.autodiscover()
@@ -18,5 +19,6 @@ urlpatterns = patterns('',
     url(r'^notifications/', include('notification.urls')),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^selectable/', include('selectable.urls')),
+    url('^profiles/edit', 'profiles.views.edit_profile', {'form_class': ProfileForm}),
     url(r'^profiles/', include('profiles.urls')),
 )
