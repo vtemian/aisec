@@ -3,6 +3,7 @@
 <head>
     <title>AISEC</title>
     <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/bootstrap.css"/>
+    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/font-awesome.css"/>
     <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/chosen.css"/>
     <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/base.css"/>
     {% load selectable_tags %}
@@ -29,7 +30,10 @@
                     <li class="nav-item-inbox"><a href="{% url inbox slug='default' %}"><i class="icon-inbox icon-white"></i> Inbox</a></li>
                     <li class="nav-item-discussion"><a href="{% url discussion slug='default' %}"><i class="icon-comment icon-white"></i> Public Discussions</a></li>
                     <li><a class="nav-item-profiles" href="{% url profiles_profile_list %}"><i class="icon-user icon-white"></i> People</a></li>
-                    <li style="float:right"><a href="{% url logout %}"><i class="icon-off icon-white"></i> Logout</a></li>
+                    <li><a href="{% url profiles_edit_profile %}">Profile</a></li>
+                    <li style="float:right">
+                        <a href="{% url logout %}"><i class="icon-off icon-white"></i> Logout</a>
+                    </li>
                 </ul>
 
             </div>

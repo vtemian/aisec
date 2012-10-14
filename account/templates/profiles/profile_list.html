@@ -7,9 +7,60 @@
 {% block content %}
     <div class="content-inner">
         {% for profile in object_list %}
-            <a href="#" class="avatar" title="{{ profile.user.get_full_name }}"><img src="{% gravatar_for_user profile.user 120 %}"/><div>{{ profile.user.get_full_name }}</div></a>
+                    <a href="#" class="avatar click" title="{{ profile.user.get_full_name }}">
+                        <img src="{% gravatar_for_user profile.user 120 %}"/>
+                        <div>{{ profile.user.get_full_name }}</div>
+                        <div class="position">{{ profile.position }}</div>
+                        <div class="position"><i class="icon-phone"></i> {{ profile.phone }}</div>
+                        <div class="position"><i class="icon-envelope"></i> {{ profile.user.email }}</div>
+                        <br/>
+                        <div class="position"><i class="icon-briefcase"></i> {{ profile.university }}</div>
+                    </a>
         {% endfor %}
     </div>
 
 {% endblock %}
 
+{% block extra_script %}
+    <script>
+        $(document).ready(function() {
+            $('.click').on('click', function() {
+                $(this).toggleClass('flip');
+                console.log('flip')
+            });
+        });
+    </script>
+{% endblock %}
+
+{% block extra_style %}
+<style>
+    .profiles .avatar {
+        width: 321px;
+        padding: 8px 8px 4px;
+        font-size: 18px;
+        text-align: left;
+        -webkit-transform: rotate(0deg);
+        -moz-transform: rotate(-0deg);
+        position: static;
+        margin: 10px;
+    }
+
+    .profiles .avatar img {
+        padding-right: 10px;
+    }
+
+    .position {
+        font-family: helvetica, sans-serif;
+        font-size: 12px;
+        color: #888;
+    }
+
+    .profiles .content-inner {
+        width: 1200px;
+        left: 50%;
+        margin-left: -563px;
+    }
+
+</style>
+
+{% endblock %}
