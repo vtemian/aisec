@@ -319,6 +319,15 @@ body.discussion #forum-content {
     overflow-y: auto;
 }
 
+.content-inner {
+    padding: 0px;
+    position: absolute;
+    top: 45px;
+    width: 600px;
+    bottom: 10px;
+    overflow-y: auto;
+}
+
 body.discussion .post-list .comment-count {
     /*background-color: #222;*/
     padding: 5px 8px;
@@ -351,6 +360,15 @@ body.discussion .post-list .post:hover .comment-count {
     font-size: 10px;
     margin-left: 34px;
     margin-top: -9px;
+}
+
+.profiles .avatar {
+    width: 120px;
+    padding: 8px 8px 4px;
+    font-size: 18px;
+}
+.profiles .avatar img {
+    width: 120px;
 }
 
 .avatar {

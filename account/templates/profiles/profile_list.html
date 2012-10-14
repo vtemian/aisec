@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% load gravatar %}
+
+{% block bodyclass %}profiles{% endblock %}
+{% block menu_item %}profiles{% endblock %}
+
+{% block content %}
+    <div class="content-inner">
+        {% for profile in object_list %}
+            <a href="#" class="avatar" title="{{ profile.user.get_full_name }}"><img src="{% gravatar_for_user profile.user 120 %}"/><div>{{ profile.user.get_full_name }}</div></a>
+        {% endfor %}
+    </div>
+
+{% endblock %}
+
