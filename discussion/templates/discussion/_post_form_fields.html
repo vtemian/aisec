@@ -10,7 +10,7 @@
   {{ form.attachment.errors }}
 </div>
 <div id="tags"></div>
-<input type="hidden" name="tags" id="hidden_tags">
+{{ form.tags }}
 {{ tag_search.media.css }}
 {{ tag_search.media.js }}
 <script type="text/javascript" src="{{ STATIC_URL }}js/insert.js"></script>

@@ -3,6 +3,7 @@ from django.utils.translation import ugettext_lazy as _
 
 from discussion.models import Comment, Post, Discussion
 from notification.models import NoticeSetting
+from tags.models import Tag, TagsPost
 
 from .utils import file_extension, DISCUSSION_UPLOAD_EXTENSIONS
 
@@ -24,23 +25,38 @@ def _clean_attachment(self):
 
 
 class CommentForm(forms.ModelForm):
-    class Meta:
-        exclude = ('user', 'post')
-        model = Comment
-        widgets = {
-            'body': forms.Textarea(attrs={'placeholder': _('Reply to this conversation')}),
-        }
-    clean_attachment = _clean_attachment
+
+  class Meta:
+      exclude = ('user', 'post')
+      model = Comment
+      widgets = {
+          'body': forms.Textarea(attrs={'placeholder': _('Reply to this conversation')}),
+      }
+  clean_attachment = _clean_attachment
 
 
 class PostForm(forms.ModelForm):
-    class Meta:
-        exclude = ('user', 'discussion')
-        model = Post
-        widgets = {
-            'body': forms.Textarea(attrs={'placeholder': _('Start a conversation')}),
-        }
-    clean_attachment = _clean_attachment
+  tags = forms.CharField(label='', widget=forms.HiddenInput(attrs={'id': _('hidden_tags')}))
+  class Meta:
+      exclude = ('user', 'discussion')
+      model = Post
+      widgets = {
+          'body': forms.Textarea(attrs={'placeholder': _('Start a conversation')}),
+      }
+
+  clean_attachment = _clean_attachment
+
+  def save(self, force_insert=False, force_update=False, commit=True):
+    post = super(PostForm, self).save(commit=False)
+    tags = self.data['tags'].split(';')
+    post.save()
+    for tag in tags:
+      try:
+        new_tag = Tag.objects.get(name=tag)
+        TagsPost.objects.create(post=post, tag=new_tag)
+      except Exception:
+        pass
+    return  post
 
 
 class SearchForm(forms.Form):
