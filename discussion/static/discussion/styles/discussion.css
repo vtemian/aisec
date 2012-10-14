@@ -178,7 +178,7 @@ body.discussion .post-list .post.new {
 }
 
 .post-list .post:hover, body.discussion .post-list .post.new:hover {
-    box-shadow: inset 0 0 0 128px rgba(255, 255, 255, 0.1);
+    box-shadow: inset 0 0 0 128px rgba(255, 255, 255, 0.05);
 }
 
 body.discussion .comment .post-info, body.discussion .post .post-info {
@@ -331,8 +331,12 @@ body.discussion .post-list .comment-count {
     box-shadow: 1px 1px 1px rgba(255, 255, 255, 0.1) inset, 1px 1px 1px rgba(0, 0, 0, 0.5);
 }
 
-body.discussion .post-list .post:hover .comment-count, body.discussion .post-list post.active .comment-count {
+body.discussion .post-list post.active .comment-count, body.discussion .post-list post.active:hover .comment-count {
     background-color: #333;
+}
+
+body.discussion .post-list .post:hover .comment-count {
+    background-color: #222;
 }
 
 .post .avatar {
