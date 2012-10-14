@@ -3,17 +3,13 @@
 <head>
     <title>AISEC</title>
     <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/bootstrap.css"/>
-    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/bootstrap-responsive.css"/>
     <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/base.css"/>
-
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300,400,700' rel='stylesheet' type='text/css'>
-
     {% block extrahead %}
     {% endblock %}
 </head>
 
 <body class="{% block bodyclass %}home{% endblock %}">
-<div class="navbar navbar-fixed-top">
+<div class="navbar navbar-fixed-top navbar-inverse">
     <div class="navbar-inner">
         <div class="container">
             <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
@@ -25,9 +21,9 @@
 
             <div class="nav-collapse collapse">
                 <ul class="nav">
-                    <li class="nav-item-home"><a href="{% url home %}">Home</a></li>
-                    <li class="nav-item-discussion"><a href="{% url discussion_index %}">Discussions</a></li>
-                    <li><a href="#about">Users</a></li>
+                    <li class="nav-item-home"><a href="{% url home %}">Inbox</a></li>
+                    <li class="nav-item-discussion"><a href="{% url discussion slug='default' %}">Discussions</a></li>
+                    <li><a href="#about">People</a></li>
                 </ul>
 
                 <form action="{% url discussion_search %}" method="POST" class="forum-search-form navbar-search pull-left">
@@ -41,7 +37,8 @@
     </div>
 </div>
 
-<div class="container">
+<div class="container content">
+    {% block sidebar %}{% endblock %}
 
     {% block content %}
     {% endblock %}
@@ -60,6 +57,18 @@
         $(document).ready(function() {
             var bodyClass = $('body').attr('class')
             $('.nav-item-' + bodyClass).addClass('active');
+
+            $('.post-reply').click(function() {
+                var parent = $(this).parent().parent().parent();
+                parent.find('.post-comments').show();
+                var textarea = parent.find('textarea');
+
+                $('html, body').animate({
+                    scrollTop: textarea.offset().top
+                }, 1000, function() {
+                    textarea.focus();
+                });
+            })
         })
     </script>
 

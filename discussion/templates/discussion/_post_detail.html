@@ -1,11 +1,14 @@
 {% load discussiontags %}
+{% load gravatar %}
+<div class="airmail"></div>
 <header class="post-header">
-  <div class="post-author">
-    <h5 class="user-name">{{ post.user.get_full_name }}</h5>
+    <div class="post-author">
+        <a href="#" class="avatar" title="{{ post.user.get_full_name }}"><img src="{% gravatar_for_user post.user 90 g %}"/><div>{{ post.user.get_full_name }}</div></a>
     <time pubdate="{{ post.time }}" class="post-date">{{ post.time|date:"d/m/Y" }}</time>
   </div>
 </header>
 <section class="post-body">
+   <div class="avatar-doppleganger"></div>
   {% if search_term %}
       {{ post.body|urlize|linebreaks|highlight:search_term }}
   {% else %}

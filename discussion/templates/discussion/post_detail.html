@@ -3,7 +3,7 @@
 
 {% block bodyclass %}{{ block.super }} post-view{% endblock %}
 
-{% block forum_content %}
+{% block content %}
     <article class="post" id="post-{{ post.id }}">
         <div class="post-info">
             {% include 'discussion/_post_detail.html' %}
@@ -19,9 +19,6 @@
                     {% include 'discussion/_comment_detail.html' %}
                 {% endfor %}
             {% endif %}
-            <div class="comment-form-wrapper" id="reply">
-                {% comment_form post %}
-            </div>
         </section>
     </article>
 
