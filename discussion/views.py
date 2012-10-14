@@ -104,7 +104,7 @@ class DiscussionView(SearchFormMixin, DetailView):
       form = self.get_notice_form(self.notice_form)
       context = self.get_context_data(object=self.object, subscribe_form=form)
       tags = Tag.objects.all()
-      context['filtered_posts'] = context['object'].post_set.exclude(tag__in=tags).all()
+      context['filtered_posts'] = context['object'].post_set.exclude(tag__in=tags).all().distinct()
 
       return self.render_to_response(context)
 
@@ -136,7 +136,7 @@ class InboxView(DiscussionView):
     context = self.get_context_data(object=self.object, subscribe_form=form)
     context['inbox'] = True
     tags = Tag.objects.filter(user=request.user)
-    context['filtered_posts'] = context['object'].post_set.filter(tag__in=tags, user=request.user).all()
+    context['filtered_posts'] = context['object'].post_set.filter(tag__in=tags, user=request.user).all().distinct()
     return self.render_to_response(context)
 
 
