@@ -13,7 +13,8 @@
             <h3>Add new post:</h3>
             {% include 'discussion/_post_form_fields.html' %}
         </form>
-        {% for post in object.post_set.all %}
+
+        {% for post in filtered_posts %}
             <article class="post post-list-{{ forloop.counter }}" id="post-{{ post.id }}">
                 {% url discussion_post pk=post.pk discussion_slug=object.slug as post_detail %}
                 <div class="post-info">
@@ -24,12 +25,12 @@
                         <a href="{{ post_detail }}" class="post-permalink">Full conversation</a>
                     </div>
                     <div class="tags">
-                      {% if post.tag_set.all %}
-                        Tags:
-                        {% for tag in post.tag_set.all %}
-                          {{ tag }}
-                        {% endfor %}
-                      {% endif %}
+                        {% if post.tag_set.all %}
+                            Tags:
+                            {% for tag in post.tag_set.all %}
+                                {{ tag }}
+                            {% endfor %}
+                        {% endif %}
                     </div>
                 </div>
                 <section class="post-comments">
@@ -45,6 +46,7 @@
                 </section>
             </article>
         {% endfor %}
+
     </div>
     <a href="{% url discussion_index %}" class="index-link">All discussions</a>
 {% endblock %}

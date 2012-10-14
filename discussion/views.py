@@ -11,6 +11,7 @@ from discussion.utils import class_view_decorator
 
 from notification.models import get_notification_settings
 from tags.forms import TagForm
+from tags.models import Tag
 
 
 class SearchFormMixin(object):
@@ -21,6 +22,7 @@ class SearchFormMixin(object):
     def get_context_data(self, **kwargs):
         context = super(SearchFormMixin, self).get_context_data(**kwargs)
         context['search_form'] = self.get_search_form(SearchForm)
+
         return context
 
     def get_search_form(self, form_class):
@@ -56,7 +58,6 @@ class DiscussionMixin(object):
 @class_view_decorator(login_required)
 class DiscussionList(SearchFormMixin, ListView):
     model = Discussion
-
 
 @class_view_decorator(login_required)
 class DiscussionView(SearchFormMixin, DetailView):
@@ -99,8 +100,14 @@ class DiscussionView(SearchFormMixin, DetailView):
 
     def get(self, request, *args, **kwargs):
         self.object = self.get_object()
+
         form = self.get_notice_form(self.notice_form)
         context = self.get_context_data(object=self.object, subscribe_form=form)
+        tags = Tag.objects.filter(user=request.user)
+        objects = []
+        for tag in tags:
+          objects += context['object'].post_set.filter(tag__name=tag.name, user=request.user).all()
+        context['filtered_posts'] = objects
         return self.render_to_response(context)
 
     def post(self, request, *args, **kwargs):
@@ -117,7 +124,6 @@ class DiscussionView(SearchFormMixin, DetailView):
         else:
             context = self.get_context_data(object=self.object, subscribe_form=form)
             return self.render_to_response(context)
-
 
 @class_view_decorator(login_required)
 class CreatePost(DiscussionMixin, CreateView):
@@ -139,6 +145,7 @@ class CreatePost(DiscussionMixin, CreateView):
 @class_view_decorator(login_required)
 class PostView(DiscussionMixin, CreateView):
     form_class = CommentForm
+
     model = Comment
     template_name = 'discussion/post_detail.html'
     ajax_form_valid_template_name = 'discussion/_comment_detail.html'
@@ -163,9 +170,10 @@ class PostView(DiscussionMixin, CreateView):
         return context
 
     def get_post(self, pk=None):
-        if pk is None:
-            pk = self.kwargs['pk']
-        return Post.objects.get(pk=pk)
+
+      if pk is None:
+        pk = self.kwargs['pk']
+      return Post.objects.get(pk=pk)
 
     def get_success_url(self):
         kwargs = {
