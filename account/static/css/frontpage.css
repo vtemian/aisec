@@ -7,6 +7,7 @@ div.main{
   padding-top:5%;
 }
 label.txt {
+  text-align: center;
   padding-left: 30px;
   width:25%;
   color:#FFF;
@@ -62,6 +63,11 @@ div.frm .input_text {
   font-size: 35px;
 }
 #login-account{
+  cursor: pointer;
+  margin-top: 5px;
+  height: 35px;
+  opacity: 0.5;
+  background-color: black;
   color: white;
   padding-top: 10px;
   text-align: center;
@@ -85,7 +91,7 @@ div.frm .button
   top: -60px;
 }
 @media all and (max-width: 860px){
-  div.txt {
+  label.txt {
     visibility: hidden;
     display:none;
   }

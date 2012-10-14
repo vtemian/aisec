@@ -26,7 +26,7 @@
               {% csrf_token %}
               <div id="general" class="error"></div>
               <input type="text" id="username" name="username" placeholder="User" class="input_text"/>
-              <input type="password" id="password" name="password" value="Password" class="input_text" />
+              <input type="password" id="password" name="password" placeholder="Password" class="input_text" />
               <input type="submit" class="button" value=''/>
 
           </form>
@@ -34,18 +34,18 @@
     </div>
     <div id="register-page">
         <label class="txt">
-            Hello stranger. Welcome to the office.
-            The place where you can't be apart from too long.
+            Go to login screen
+            <label id="login-account">Login</label>
         </label>
         <div class="frm">
             <form action="{% url account.views.register %}" id="sign_up_form" method="POST">
                 {% csrf_token %}
                 <div id="general" class="error"></div>
-                    <input type="text" id="username" name="username" value="User" class="input_text"/>
-                    <input type="password" id="password" name="password" value="Password" class="input_text" />
-                    <input type="email" id="email" name="email" value="E-mail" class="input_text" />
+                    <input type="text" id="username" name="username" placeholder="User"  class="input_text"/>
+                    <input type="password" id="password" name="password" placeholder="Password"  class="input_text" />
+                    <input type="email" id="email" name="email"  placeholder="Email" class="input_text" />
                     <input type="submit" class="button" value=''/>
-                    <label id="login-account">Login</label>
+
             </form>
                 
         </div>
