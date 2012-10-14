@@ -24,7 +24,7 @@
           <form action="{% url account.views.login %}" method="POST" id="login-form">
               {% csrf_token %}
               <div id="general" class="error"></div>
-              <input type="text" id="username" name="username" value="User" class="input_text"/>
+              <input type="text" id="username" name="username" placeholder="User" class="input_text"/>
               <input type="password" id="password" name="password" value="Password" class="input_text" />
               <input type="submit" class="button" value=''/>
               <label id="create-account">Create account</label>

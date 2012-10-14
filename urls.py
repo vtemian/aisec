@@ -11,7 +11,7 @@ import settings
 urlpatterns = patterns('',
     url(r'^$', RedirectView.as_view(url='discussion/discussions/default/inbox'), name='home'),
     url(r'^accounts/login/', 'account.views.login'),
-    url(r'^accounts/logout/?$',  'django.contrib.auth.views.logout_then_login'),
+    url(r'^accounts/logout/?$',  'django.contrib.auth.views.logout_then_login', name='logout'),
     url(r'^user/register/$',  'account.views.register'),
     url(r'^discussion/', include('discussion.urls')),
     url(r'^tag/', include('tags.urls')),

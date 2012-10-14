@@ -36,7 +36,8 @@ div.frm {
   opacity: 0.6;
   height: 80%;
 }
-
+::-webkit-input-placeholder  { padding-top: 20px; }
+input:-moz-placeholder { padding-top: 20px; }
 
 div.frm .input_text {
   margin:20px;

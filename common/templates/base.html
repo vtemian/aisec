@@ -25,10 +25,11 @@
 
             {% if user.is_authenticated %}
             <div class="nav-collapse collapse">
-                <ul class="nav" data-selected-item="{% block menu_item %}home{% endblock %}">
+                <ul class="nav" data-selected-item="{% block menu_item %}home{% endblock %}" style="width: 90%">
                     <li class="nav-item-inbox"><a href="{% url inbox slug='default' %}"><i class="icon-inbox icon-white"></i> Inbox</a></li>
                     <li class="nav-item-discussion"><a href="{% url discussion slug='default' %}"><i class="icon-comment icon-white"></i> Public Discussions</a></li>
                     <li><a href="#about"><i class="icon-user icon-white"></i> People</a></li>
+                    <li style="float:right"><a href="{% url logout %}"><i class="icon-off icon-white"></i> Logout</a></li>
                 </ul>
 
             </div>
