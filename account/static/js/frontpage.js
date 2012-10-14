@@ -1,7 +1,9 @@
 
 
 $(document).ready(function(){
-
+    parallax.add("register", $("#register-page"));
+    parallax.add("login", $("#login-page"));
+    parallax.login.bottom();
     var login = true;
     $('#login-trigger').click(function(){
         $('#login').modal({
@@ -55,7 +57,10 @@ $(document).ready(function(){
         });
     })
 
-    $('.fb_login').click(function(){
-       window.location='/facebook/login';
-    });
+    $('#create-account').click(function(){
+      parallax.register.bottom(); //We got callbacks too ;)
+    })
+    $('#login-account').click(function(){
+      parallax.login.top(); //We got callbacks too ;)
+    })
 });

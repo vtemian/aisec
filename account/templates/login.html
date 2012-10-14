@@ -6,40 +6,49 @@
 
 {% block extra_script %}
     <script src="{{ STATIC_URL }}js/django-validate.js"></script>
+    <script src="http://stolksdorf.github.com/Parallaxjs/parallax.min.js"></script>
+    <script src="{{ STATIC_URL }}js/parallax/kinetics.js"></script>
     <script src="{{ STATIC_URL }}js/frontpage.js"></script>
     <script src="{{ STATIC_URL }}js/login.js"></script>
     <script src="{{ STATIC_URL }}js/register.js"></script>
 {% endblock %}
 
 {% block content %}
-       <div id="login">
-       <img src="{{ STATIC_URL }}img/logo2.png"/>
-            <form action="{% url account.views.login %}" method="POST" id="login-form">
-                {% csrf_token %}
-                <div id="general" class="error"></div>
-                    <label for="username" class="label">username:</label>
-                    <input type="text" id="username" name="username" class="user_login_input"/>
-                    <label for="password" class="label">password:</label>
-                    <input type="password" id="password" name="password" class="user_login_input" />
-                <input type="submit" value="login" class="submit" />
-            </form>
-                
-        </div>
-        <div id="register"><div id="avionas"></div>
+    <div id="login-page">
+      <label class="txt">
+          Hello stranger. Welcome to the office.
+          The place where you can't be apart from too long.
+      </label>
+      <div class="frm">
+
+          <form action="{% url account.views.login %}" method="POST" id="login-form">
+              {% csrf_token %}
+              <div id="general" class="error"></div>
+              <input type="text" id="username" name="username" value="User" class="input_text"/>
+              <input type="password" id="password" name="password" value="Password" class="input_text" />
+              <input type="submit" class="button" value=''/>
+              <label id="create-account">Create account</label>
+          </form>
+      </div>
+    </div>
+    <div id="register-page">
+        <label class="txt">
+            Hello stranger. Welcome to the office.
+            The place where you can't be apart from too long.
+        </label>
+        <div class="frm">
             <form action="{% url account.views.register %}" id="sign_up_form" method="POST">
                 {% csrf_token %}
                 <div id="general" class="error"></div>
-                    <label for="username" class="label">username:</label>
-                    <input type="text" id="username" name="username" class="user_login_input"/>
-                    <label for="password" class="label">password:</label>
-                    <input type="password" id="password" name="password" class="user_login_input" />
-                    <label for="email" class="label">email:</label>
-                    <input type="email" id="email" name="email" class="user_login_input" />
-                <input type="submit" value="register" class="submit" />
-
+                    <input type="text" id="username" name="username" value="User" class="input_text"/>
+                    <input type="password" id="password" name="password" value="Password" class="input_text" />
+                    <input type="email" id="email" name="email" value="E-mail" class="input_text" />
+                    <input type="submit" class="button" value=''/>
+                    <label id="login-account">Login</label>
             </form>
                 
         </div>
+    </div>
 
 {% endblock %}
 
