@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from django.contrib.auth.models import User, check_password
 from django.contrib.auth import authenticate, login as auth_login
 from django.utils import simplejson
+from django.views.generic.simple import direct_to_template
 from account.form import UserRegister, UserLogin, ResetPassword
 from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import render_to_response, redirect, render
@@ -29,17 +30,20 @@ def register(request):
 
 
 def login(request):
-    form = UserLogin(request.POST)
-    if form.is_valid():
-        user = form.get_auth_user()
-        if user is not None:
-            if user.is_active:
-                auth_login(request, user)
-                return HttpResponse(simplejson.dumps({'ok': '/'}))
-            return HttpResponse(simplejson.dumps({'disabled': 'This account has been disabled'}))
-        return HttpResponse(simplejson.dumps({'not': 'Incorect username or password'}))
+    if request.method == 'POST':
+        form = UserLogin(request.POST)
+        if form.is_valid():
+            user = form.get_auth_user()
+            if user is not None:
+                if user.is_active:
+                    auth_login(request, user)
+                    return HttpResponse(simplejson.dumps({'ok': '/'}))
+                return HttpResponse(simplejson.dumps({'disabled': 'This account has been disabled'}))
+            return HttpResponse(simplejson.dumps({'not': 'Incorect username or password'}))
+        else:
+            return HttpResponse(simplejson.dumps(form.errors))
     else:
-        return HttpResponse(simplejson.dumps(form.errors))
+        return direct_to_template(request, 'login.html')
 
 def change_password(request):
     if request.method == 'POST':

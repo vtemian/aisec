@@ -1,11 +1,16 @@
-{% extends 'index.html' %}
+{% extends 'base.html' %}
+
 {% block extrahead %}
+    <link rel="stylesheet" href="{{ STATIC_URL }}css/frontpage.css">
+{% endblock %}
+
+{% block extra_script %}
     <script src="{{ STATIC_URL }}js/django-validate.js"></script>
     <script src="{{ STATIC_URL }}js/frontpage.js"></script>
     <script src="{{ STATIC_URL }}js/login.js"></script>
     <script src="{{ STATIC_URL }}js/register.js"></script>
-    <link rel="stylesheet" href="{{ STATIC_URL }}css/frontpage.css">
 {% endblock %}
+
 {% block content %}
        <div id="login">
             <div id="pilot"></div>

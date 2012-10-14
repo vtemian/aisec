@@ -30,3 +30,12 @@ h1, h2, h3, h4, h5, h6 {
 .nav :hover .icon-white, .nav .active .icon-white {
     opacity: 1;
 }
+
+.navbar .logo {
+    background-image: url(/static/img/logo2.png);
+    background-position: left;
+    background-size: 30px;
+    background-repeat: no-repeat;
+    padding-left: 33px;
+    margin-left: -8px;
+}

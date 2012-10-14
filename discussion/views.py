@@ -4,6 +4,7 @@ from django.http import HttpResponseRedirect
 from django.views.generic import CreateView, DetailView, ListView, FormView
 from django.views.generic.list import BaseListView
 from django.db.models import Q
+from account.middleware import LazyUser
 
 from discussion.forms import CommentForm, PostForm, SearchForm, SubscribeForm
 from discussion.models import Discussion, Comment, Post
@@ -20,6 +21,7 @@ class SearchFormMixin(object):
     def get_context_data(self, **kwargs):
         context = super(SearchFormMixin, self).get_context_data(**kwargs)
         context['search_form'] = self.get_search_form(SearchForm)
+        context['user'] = LazyUser()
         return context
 
     def get_search_form(self, form_class):
