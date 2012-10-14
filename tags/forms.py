@@ -7,5 +7,5 @@ class TagForm(forms.Form):
   autocomplete = forms.CharField(
     label='Tag',
     widget=selectable.AutoCompleteWidget(TagLookup),
-    required=False,
+    required=True,
   )

@@ -1,6 +1,9 @@
 from django.http import HttpResponse
+from tags.models import Tag
 
-__author__ = 'Vlad Temian'
-def search_tag(request):
-
-    return HttpResponse('adsd')
+def exists(request, tag_name):
+  try:
+    Tag.objects.get(name=tag_name)
+    return HttpResponse("True")
+  except Exception:
+    return HttpResponse("False")
