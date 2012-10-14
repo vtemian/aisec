@@ -10,7 +10,7 @@ $(function() {
       // Initialise post fields
       if ($.fn.autogrow) {
         // The class sets the height differently if we are using autogrow, otherwise uses a larger height
-        allPostTextarea.addClass('autogrow').autogrow()
+//        allPostTextarea.addClass('autogrow').autogrow()
         allCommentTextarea.addClass('autogrow').autogrow()
       }
 

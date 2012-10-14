@@ -4,27 +4,52 @@
 
 {% block sidebar %}
     <div class="post-list">
-        {% for post in object.post_set.all %}
-            <article class="post post-list-{{ forloop.counter }}" id="post-{{ post.id }}" data-url="{{ post.get_absolute_url }}">
-                {% url discussion_post pk=post.pk discussion_slug=object.slug as post_detail %}
-                <div class="post-info">
-                    <header class="post-header">
-                        <div class="post-author">
-                            <h5 class="user-name">{{ post.user.get_full_name }}</h5>
-                            <time pubdate="{{ post.time }}" class="post-date">{{ post.time|date:"d M Y" }}</time>
-                        </div>
-                    </header>
-                    <section class="post-body">
-                        {{ post.body|truncatechars:70|urlize }}
-                    </section>
+        <div class="sidebar-header">
+            <button class="btn btn-primary btn-small new-post-btn"><i class="icon-edit icon-white"></i></button>
+            <h3>Discussions</h3>
+        </div>
+        <div id="post-list-wrap">
+            <div id="post-list-inner">
+            {% for post in object.post_set.all %}
+                <article class="post post-list-{{ forloop.counter }}" id="post-{{ post.id }}" data-url="{{ post.get_absolute_url }}">
+                    {% url discussion_post pk=post.pk discussion_slug=object.slug as post_detail %}
+                    <div class="post-info">
+                        <header class="post-header">
+                            <div class="post-author">
+                                <h5 class="user-name">{{ post.user.get_full_name }}</h5>
+                                <time pubdate="{{ post.time }}" class="post-date">{{ post.time|date:"d M Y" }}</time>
+                            </div>
+                        </header>
+                        <section class="post-body">
+                            {{ post.body|truncatechars:70|urlize }}
+                        </section>
 
-                    {% if post.comment_set.all.count %}
-                    <div class="comment-count">{{ post.comment_set.all.count}}</div>
-                    {% endif %}
-                </div>
-            </article>
-        {% endfor %}
+                        {% if post.comment_set.all.count %}
+                        <div class="comment-count">{{ post.comment_set.all.count}}</div>
+                        {% endif %}
+                    </div>
+                </article>
+            {% endfor %}
+            </div>
+        </div>
     </div>
+
+    <div class="modal hide fade" id="new-post-dialog">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h3>New Message</h3>
+        </div>
+        <div class="modal-body">
+            <form action="{% url discussion_add_post discussion_slug=discussion.slug %}" method="POST" enctype="multipart/form-data" class="post-form">
+                {% include 'discussion/_post_form_fields.html' %}
+            </form>
+        </div>
+        <div class="modal-footer">
+            <a href="#" class="btn" data-dismiss="modal">Close</a>
+            <a href="#" class="btn btn-primary save-btn">Post Message</a>
+        </div>
+    </div>
+
 {% endblock %}
 
 {% block forum_content %}
@@ -55,15 +80,44 @@ function loadUrl(url) {
     });
 }
 
-$(document).ready(function() {
+
+function init() {
     $('.post-list .post').click(function() {
         $('.post.active').removeClass('active');
         $(this).addClass('active');
         url = $(this).data('url');
         loadUrl(url);
     })
+}
+
+$(document).ready(function() {
+    init();
 
     $($('.post').get(0)).trigger('click');
+
+    $('.new-post-btn').on('click', function() {
+        $('#new-post-dialog').modal();
+        $('#new-post-dialog .save-btn').on('click', function() {
+            var saveBtn = $(this);
+            saveBtn.attr('disabled', 'disabled').text('Posting Message...');
+            $('#new-post-dialog .post-form').ajaxSubmit({
+                success: function() {
+                    console.log('success');
+                    $('#new-post-dialog').modal('hide');
+                    console.log('loading', window.location.href)
+                    $('#post-list-wrap').load('{% url discussion slug=discussion.slug %} #post-list-inner', function() {
+                        init();
+                    });
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    console.log('error');
+                    saveBtn.removeAttr('disabled').text('Send Reply');
+                    var text = $(jqXHR.responseText);
+                    $('#new-post-dialog .modal-body').replaceWith(text.find('.modal-body'))
+                }
+            });
+        })
+    })
 
 })
 </script>
