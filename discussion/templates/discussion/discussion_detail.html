@@ -69,6 +69,12 @@
 
 {% block extra_script %}
     <script>
+        {% if inbox %}
+            var sidebarUrl = '{% url inbox slug=discussion.slug %}';
+        {% else %}
+            var sidebarUrl = '{% url discussion slug=discussion.slug %}';
+        {% endif %}
+
         function loadUrl(url) {
             $('#forum-content').load(url + ' .post', function() {
                 $('.reply-btn').on('click', function() {
@@ -80,7 +86,7 @@
                             success: function() {
                                 $('#reply-dialog').modal('hide');
                                 loadUrl(url);
-                                $('#post-list-wrap').load('{% url discussion slug=discussion.slug %} #post-list-inner', function() {
+                                $('#post-list-wrap').load(sidebarUrl + ' #post-list-inner', function() {
                                     init();
                                 });
                             },
@@ -118,7 +124,7 @@
                     $('#new-post-dialog .post-form').ajaxSubmit({
                         success: function() {
                             $('#new-post-dialog').modal('hide');
-                            $('#post-list-wrap').load('{% url discussion slug=discussion.slug %} #post-list-inner', function() {
+                            $('#post-list-wrap').load(sidebarUrl + ' #post-list-inner', function() {
                                 init();
                             });
                         },

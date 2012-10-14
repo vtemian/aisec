@@ -497,3 +497,7 @@ body.discussion #forum-content .post .user-name {
 .sidebar-header {
     overflow: hidden;
 }
+
+.icon-remove-custom{
+    margin-left: 5px;
+}
