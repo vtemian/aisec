@@ -23,6 +23,14 @@
                         <a href="#reply-{{ forloop.counter }}" class="post-reply">Reply</a>
                         <a href="{{ post_detail }}" class="post-permalink">Full conversation</a>
                     </div>
+                    <div class="tags">
+                      {% if post.tag_set.all %}
+                        Tags:
+                        {% for tag in post.tag_set.all %}
+                          {{ tag }}
+                        {% endfor %}
+                      {% endif %}
+                    </div>
                 </div>
                 <section class="post-comments">
                     {% if post.comment_set.all.count > 0 %}
