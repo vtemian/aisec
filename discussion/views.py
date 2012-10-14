@@ -135,6 +135,7 @@ class InboxView(DiscussionView):
     context = self.get_context_data(object=self.object, subscribe_form=form)
     tag = Tag.objects.get(name="private")
     context['filtered_posts'] = context['object'].post_set.exclude(tag=tag).all()
+    context['inbox'] = True
     return self.render_to_response(context)
 
 @class_view_decorator(login_required)

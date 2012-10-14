@@ -3,7 +3,6 @@
 <head>
     <title>AISEC</title>
     <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/bootstrap.css"/>
-    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/bootstrap-responsive.css"/>
     <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/base.css"/>
     {% load selectable_tags %}
     {% include_jquery_libs %}
@@ -14,7 +13,7 @@
 </head>
 
 <body class="{% block bodyclass %}home{% endblock %}">
-<div class="navbar navbar-fixed-top navbar-inverse">
+<div class="navbar navbar-fixed-top navbar-inverse" >
     <div class="navbar-inner">
         <div class="container">
             <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
@@ -26,9 +25,9 @@
 
             {% if user.is_authenticated %}
             <div class="nav-collapse collapse">
-                <ul class="nav">
-                    <li class="nav-item-home"><a href="{% url inbox slug='default' %}"><i class="icon-inbox icon-white"></i> Inbox</a></li>
-                    <li class="nav-item-discussion"><a href="{% url discussion slug='default' %}"><i class="icon-comment icon-white"></i> Discussions</a></li>
+                <ul class="nav" data-selected-item="{% block menu_item %}home{% endblock %}">
+                    <li class="nav-item-inbox"><a href="{% url inbox slug='default' %}"><i class="icon-inbox icon-white"></i> Inbox</a></li>
+                    <li class="nav-item-discussion"><a href="{% url discussion slug='default' %}"><i class="icon-comment icon-white"></i> Public Discussions</a></li>
                     <li><a href="#about"><i class="icon-user icon-white"></i> People</a></li>
                 </ul>
 
@@ -57,8 +56,8 @@
 
     <script>
         $(document).ready(function() {
-            var bodyClass = $('body').attr('class')
-            $('.nav-item-' + bodyClass).addClass('active');
+            var selectedItem = $('ul.nav').data('selected-item');
+            $('.nav-item-' + selectedItem).addClass('active');
 
             $('.post-reply').click(function() {
                 var parent = $(this).parent().parent().parent();
