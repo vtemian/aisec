@@ -50,6 +50,6 @@ class AdminTagsPost(admin.ModelAdmin):
     list_display = ('post', 'tag')
 
 
-admin.site.register(TagPriority, AdminTagPriority)
-admin.site.register(Tag, AdminTag)
-admin.site.register(TagsPost, AdminTagsPost)
+#admin.site.register(TagPriority, AdminTagPriority)
+#admin.site.register(Tag, AdminTag)
+#admin.site.register(TagsPost, AdminTagsPost)

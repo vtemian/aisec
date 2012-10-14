@@ -153,6 +153,11 @@ body.discussion .comment, body.discussion .post {
     position: relative;
 }
 
+body.discussion .comment {
+    padding: 20px 0 0;
+    border-top: 1px solid #eee;
+}
+
 body.discussion .post-list .comment, body.discussion .post-list .post {
     border: none;
     padding: 3px 6px 6px 12px;
@@ -192,10 +197,12 @@ body.discussion .comment .comment-date, body.discussion .post .post-date, body.d
     color: #666;
 }
 
+.comment .post-body, .post .post-body, body.discussion .comment .post-comments, body.discussion .post .post-comments {
+    padding: 0 16px;
+}
 
 .comment .post-body, .post .post-body {
     color: #252525;
-    padding: 0 16px;
     margin: 10px 0;
 }
 .post-list .comment .post-body, .post-list .post .post-body {
@@ -203,7 +210,7 @@ body.discussion .comment .comment-date, body.discussion .post .post-date, body.d
     font-size: 11px;
     color: #AAA;
     line-height: 13px;
-    margin: 2px 26px 0 0;
+    margin: 2px 27px 0 0;
 }
 
 
@@ -324,18 +331,29 @@ body.discussion .post-list .post:hover .comment-count, body.discussion .post-lis
     background-color: #333;
 }
 
+.post .avatar {
+    width: 90px;
+    padding: 6px 6px 4px;
+    font-size: 14px;
+}
+
+.comment .avatar {
+    width: 60px;
+    padding: 2px 2px 3px;
+    font-size: 10px;
+    margin-left: 34px;
+    margin-top: -9px;
+}
+
 .avatar {
     background: white;
     display: inline;
     float: left;
     margin: 0 6px 0 0;
-    width: 90px;
-    padding: 6px 6px 4px;
     text-align: center;
     font-family: "Marker Felt", sans-serif;
     text-decoration: none;
     color: #333;
-    font-size: 14px;
     -webkit-box-shadow: 0 3px 6px rgba(0, 0, 0, .25);
     -moz-box-shadow: 0 3px 6px rgba(0,0,0,.25);
     -webkit-transform: rotate(-5deg);
@@ -380,8 +398,17 @@ body.discussion #forum-content .post .user-name {
 }
 
 
-.avatar-doppleganger {
+.post .avatar-doppleganger {
     height: 105px;
     width: 120px;
     float: left;
+}
+.comment .avatar-doppleganger {
+    height: 95px;
+    width: 1px;
+    float: left;
+}
+
+.comment-body {
+    margin-left: 125px
 }
