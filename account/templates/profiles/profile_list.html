@@ -7,8 +7,6 @@
 {% block content %}
     <div class="content-inner">
         {% for profile in object_list %}
-            <div class="card click">
-                <div class="front">
                     <a href="#" class="avatar click" title="{{ profile.user.get_full_name }}">
                         <img src="{% gravatar_for_user profile.user 120 %}"/>
                         <div>{{ profile.user.get_full_name }}</div>
@@ -18,8 +16,6 @@
                         <br/>
                         <div class="position"><i class="icon-briefcase"></i> {{ profile.university }}</div>
                     </a>
-                </div>
-            </div>
         {% endfor %}
     </div>
 
@@ -45,6 +41,8 @@
         text-align: left;
         -webkit-transform: rotate(0deg);
         -moz-transform: rotate(-0deg);
+        position: static;
+        margin: 10px;
     }
 
     .profiles .avatar img {
@@ -57,6 +55,11 @@
         color: #888;
     }
 
+    .profiles .content-inner {
+        width: 1200px;
+        left: 50%;
+        margin-left: -563px;
+    }
 
 </style>
 
