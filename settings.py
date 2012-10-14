@@ -106,7 +106,7 @@ ROOT_URLCONF = 'urls'
 WSGI_APPLICATION = 'wsgi.application'
 
 TEMPLATE_DIRS = ('/home/wok/PycharmProjects/aisec/templates',)
-
+AUTH_PROFILE_MODULE = 'account.UserProfile'
 INSTALLED_APPS = (
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -114,6 +114,7 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'profiles',
     'admin_bootstrap',
     'django.contrib.admin',
     'discussion',

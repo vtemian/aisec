@@ -17,4 +17,5 @@ urlpatterns = patterns('',
     url(r'^notifications/', include('notification.urls')),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^selectable/', include('selectable.urls')),
+    url(r'^profiles/', include('profiles.urls')),
 )
