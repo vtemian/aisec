@@ -1,8 +1,29 @@
 {% extends 'base.html' %}
 {% block content %}
-    <form action="{% url profiles_edit_profile %}" method="POST">
+    <form action="" method="POST">
       {% csrf_token %}
       {{ form.as_p }}
+      <div id="tags">
+          {{ form.tags }}
+      </div>
+      <script type="text/javascript" src="{{ STATIC_URL }}js/insert.js"></script>
+      <script>
+          $(document).ready(function() {
+              $('#tags select').chosen()
+
+              var size = 0;
+              var dialog = $('#new-post-dialog .modal-body');
+              $('#tags .default').on('focus', function() {
+                  dialog.stop();
+                  size = dialog.height();
+                  dialog.animate({height: 300});
+              }).on('blur', function() {
+                          dialog.stop();
+                          dialog.animate({height: size});
+                      });
+
+          })
+      </script>
       <button class="submit">Save</button>
     </form>
 {% endblock %}

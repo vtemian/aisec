@@ -13,9 +13,3 @@ class UserProfile(models.Model):
   adress = models.CharField(max_length=30, null=True)
   how_long_time_in_aeisec = models.CharField(max_length=30, null=True)
   university = models.CharField(max_length=30, null=True)
-
-  tag = models.ManyToManyField(Tag, through="account.TagUser")
-
-class TagUser(models.Model):
-  user = models.ForeignKey(UserProfile)
-  tag = models.ForeignKey(Tag)

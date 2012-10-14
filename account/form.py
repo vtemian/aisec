@@ -3,7 +3,7 @@ from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
 from django.forms import ModelForm
 from account.models import UserProfile
-
+from tags.models import TagsUser, Tag
 
 class UserRegister(forms.Form):
     email = forms.EmailField(max_length=30)
@@ -34,10 +34,13 @@ class UserLogin(forms.Form):
         user = authenticate(username=username, password=password)
         return user
 
+
+
 class ProfileForm(ModelForm):
 
   def __init__(self, *args, **kwargs):
     super(ProfileForm, self).__init__(*args, **kwargs)
+    self.fields['tags'] = forms.ModelMultipleChoiceField(queryset=Tag.objects.all())
     try:
       self.fields['email'].initial = self.instance.user.email
       self.fields['first_name'].initial = self.instance.user.first_name
@@ -51,7 +54,7 @@ class ProfileForm(ModelForm):
 
   class Meta:
     model = UserProfile
-    exclude = ('user',)
+    exclude = ('user', )
 
   def save(self, *args, **kwargs):
     """
@@ -59,7 +62,13 @@ class ProfileForm(ModelForm):
     """
     u = self.instance.user
     u.email = self.cleaned_data['email']
+    u.first_name = self.cleaned_data['first_name']
+    u.last_name = self.cleaned_data['last_name']
     u.save()
+
+    for tag in self.cleaned_data['tags']:
+      TagsUser.objects.create(tag=tag, user=u)
+
     profile = super(ProfileForm, self).save(*args,**kwargs)
     return profile
 
