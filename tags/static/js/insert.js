@@ -8,7 +8,7 @@ $(document).ready(function(){
         if (result == 'True'){
           if ($.inArray(val, tags) == -1){
             $('#hidden_tags').val($('#hidden_tags').val() + val + ';');
-            $('#tags').append('<label>'+val+'</label>');
+            $('#tags').append('<label>'+val+'<span data-value="'+val+'" class="delete-tags">-delete-</label>');
             tags.push(val);
           }else{
             console.log('Already this tag');
@@ -20,5 +20,12 @@ $(document).ready(function(){
       });
       return false;
     }
+  });
+  $('.delete-tags').live('click', function(){
+    to_delete = $(this).data('value');
+    tags.pop(to_delete);
+    all_tags = $('#hidden_tags').val();
+    $('#hidden_tags').val(all_tags.replace(to_delete + ';', ''));
+    $(this).parent().remove();
   });
 });
