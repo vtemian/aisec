@@ -36,7 +36,7 @@ class CommentForm(forms.ModelForm):
 
 
 class PostForm(forms.ModelForm):
-  tags = forms.CharField(label='', widget=forms.HiddenInput(attrs={'id': _('hidden_tags')}))
+  tags = forms.CharField(label='', widget=forms.HiddenInput(attrs={'id': _('hidden_tags')}), required=False)
   class Meta:
       exclude = ('user', 'discussion')
       model = Post
