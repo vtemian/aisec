@@ -26,11 +26,6 @@
                     <li class="nav-item-discussion"><a href="{% url discussion slug='default' %}"><i class="icon-comment icon-white"></i> Discussions</a></li>
                     <li><a href="#about"><i class="icon-user icon-white"></i> People</a></li>
                 </ul>
-
-                <form action="{% url discussion_search %}" method="POST" class="forum-search-form navbar-search pull-left">
-                    {% csrf_token %}
-                    {{ search_form.search }}
-                </form>
             </div>
             {% endif %}
             <!--/.nav-collapse -->

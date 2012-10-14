@@ -443,6 +443,14 @@ body.discussion #forum-content .post .user-name {
     margin-bottom: 15px;
 }
 
+.post-list .icon-search {
+    position: absolute;
+    left: 12px;
+    z-index: 10;
+    top: 8px;
+    opacity: 0.3;
+}
+
 .new-post-btn {
     position: absolute;
     right: 7px;
@@ -451,4 +459,41 @@ body.discussion #forum-content .post .user-name {
     opacity: 0.7;
     border-radius: 3px;
     border-color: rgba(0, 0, 0, 1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1);
+}
+
+
+.post-list .search-query {
+    color: white;
+    background-color: #515151;
+    border-color: #111;
+    -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1), 0 1px 0 rgba(255, 255, 255, 0.15);
+    -moz-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1), 0 1px 0 rgba(255, 255, 255, 0.15);
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1), 0 1px 0 rgba(255, 255, 255, 0.15);
+    -webkit-transition: none;
+    -moz-transition: none;
+    -o-transition: none;
+    transition: none;
+    width: 148px;
+    margin-left: 5px;
+    height: 13px;
+    margin-bottom: 6px;
+    font-size: 11px;
+    padding-left: 27px;
+}
+
+.post-list .search-query:focus, .post-list .search-query.focused {
+    color: #333;
+    text-shadow: 0 1px 0 white;
+    background-color: white;
+    border: 0;
+    outline: 0;
+    margin-bottom: 7px;
+    margin-top: 1px;
+    -webkit-box-shadow: 0 0 3px rgba(0, 0, 0, 0.15);
+    -moz-box-shadow: 0 0 3px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.15);
+}
+
+.sidebar-header {
+    overflow: hidden;
 }
